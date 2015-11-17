@@ -1,1 +1,75 @@
-Hello World
+<!DOCTYPE html>
+<!-- Modification of an example by Scott Murray from Knight D3 course -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Child Mortality in SubSaharan Africa</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"> -->
+		<!-- <link rel="stylesheet" href="line.css" /> -->
+	</head>
+	<body>
+		
+		<div class="container">
+			<h1>Child Mortality in SubSaharan Africa</h1>
+			<div class="row">
+			<h2>Under-Five Mortality Rates (per 1000 live births) in the World</h2>
+		    <p>Compared to the rest of the world, Sub-Saharan Africa has the highest child mortality rates. <span class="red underlineBold">Red</span> represents high child mortality rates and <span class="paleblue underlineBold">pale-blue</span> represents low child mortality rates.</p>
+		    <p>Source: <a href="http://data.worldbank.org/indicator/SH.DYN.MORT">WHO</a>. Data shown is most recent data for countries with data available.</p>
+		    
+		    <div id="vis"></div>
+		
+			</div>
+
+			<div class ="row">
+			<h1>Sub-Saharan Africa</h1>
+			<p>The region has the highest child mortality rates in the world. However, the annual rate of reduction has increased from 1.6 percent in the 1990s to 4.1 percent in 2000-2015. (Source: UNICEF)</p>
+
+			<p>(Instead of this chart, I will probably add the stepper with the same graphs that I used for my scrollytelling this week.)</p>
+
+			<div id="lineChart"></div>
+			</div>
+
+			<div class ="row" id="page">
+			<h1>Why do some of the countries higher child mortality rates than others in Sub-Saharan Africa?</h1>
+			<p>Angola has the highest child mortality rate as of 2015. It also has the third highest number of child mortality due to inadequate water, sanitation, and hygeine</p>
+
+			<p>"Water, Sanitation, and Hygeine" refers to the number of Under-5 deaths caused by inadequate Water, Hygeine, and Sanitation.</p>
+
+			<div id="table"></div>
+			</div>
+		</div>
+
+		<!-- Scripts for map -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	
+
+		<script src="//d3js.org/d3.v3.min.js"></script>
+		<script src="//d3js.org/queue.v1.min.js"></script>
+		<script src="d3-legend.min.js"></script>
+		<script src="//d3js.org/topojson.v1.min.js"></script>
+		<script type="text/javascript" src="tooltip.js"></script>
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+		<!-- Scripts for scrollytelling -->
+		<!--
+		<script src="mfreeman_scroller.js"></script>
+		<script src="line_chart_refactor.js"></script>
+		<script src="scroller_settings.js"></script>
+	-->
+		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		
+		<script type="text/javascript" src="choropleth.js"></script>
+		<script type="text/javascript" src="lineChart.js"></script>
+
+		<script type="text/javascript" src="stupidtable.js"></script>
+		<script type="text/javascript" src="sortableChart.js"></script>
+
+		
+
+	</body>
+</html>
