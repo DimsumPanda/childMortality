@@ -1,0 +1,268 @@
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    color: rgb(0,153,255);
+    background-image: url("unicef.jpg");
+}
+
+.container {
+    /*background-color: rgba(255, 255, 255, 0.9);*/
+    background-color: #fff;
+
+}
+
+.row {
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+h1 {
+    font-size: 30px;
+    margin-top: 0px;
+    text-align: center;
+}
+h2 {
+    font-size: 20px;
+}
+p {
+    color: #000;
+}
+
+/*======================================================================
+    Style for the Chloropleth world map for child mortality
+======================================================================*/
+.countries {
+    stroke: #fff;
+    stroke-width:1px;
+}
+
+.countries:hover{
+    opacity: .7;
+}
+
+.legendLinear text {
+    font-size: 9px;
+}
+
+svg {
+    display: block;
+    margin: auto;
+} 
+
+.d3-tip {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.5);
+    color: #0099FF;
+    border-radius: 2px;
+}
+.paleblue {
+    color: #d1e5f0;
+}
+.red {
+    color: #b2182b;
+}
+.underlineBold {
+    text-decoration: underline;
+    font-weight: bold;
+}
+/*======================================================================
+    Style for the Scrollytelling
+======================================================================*/
+#graphic {
+  padding-top: 60px;
+}
+
+
+#sections {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+  top: 0px;
+  z-index: 90;
+  padding-bottom: 250px;
+}
+
+.step {
+  margin-bottom: 200px;
+  font-family: "TiemposTextWeb-Regular","Georgia";
+  font-size: 16px;
+  line-height: 23px;
+  color: #767678;
+}
+
+#sections .title {
+  font-family: Arial,Helvetica,"san-serif";
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #262626;
+  line-height: 1.2em;
+}
+#extra-space {
+  height: 300px;
+}
+
+#vis2 {
+  display: inline-block;
+  position: fixed;
+  top: 60px;
+  z-index: 1;
+  margin-left: 0;
+  font-size: 10px;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: none;
+  shape-rendering: crispEdges;
+}
+
+path.line {
+  fill: none;
+  stroke-width: 1px;
+  stroke-opacity: 80%;
+}
+
+.line.normal {
+  stroke: gray;
+}
+
+.line.unfocused{
+  stroke-opacity: 40%;
+}
+
+.line.focused {
+  stroke-width: 2px;
+  stroke-opacity: 100%;
+  stroke: orange;
+}
+
+/*======================================================================
+    Style for Line Chart
+======================================================================*/
+
+svg rect:hover {
+    opacity: .3;
+}
+
+svg circle:hover {
+    opacity: .3;
+}
+
+svg g {
+    fill: #ACACAC;
+}
+
+svg g text.label,
+svg g text.ylabel {
+    fill: #0099FF;
+
+}
+
+svg {
+    background-color: white;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #D3D3D3;
+    stroke-width: 1px;
+}
+
+.line {
+    stroke: rgba(0 , 153, 255, 0.75);;
+    fill: none;
+    stroke-width: 1px;
+}
+
+.criticalAreas {
+    stroke: red;
+    stroke-opacity: 50%;
+}
+
+.world {
+  stroke: rgba(0,0,0,1);
+    stroke-width: 2px;
+}
+
+.unfocused {
+    stroke-opacity: 25%;
+}
+
+.focused {
+    stroke-width: 2px;
+    stroke-opacity: 100%;
+}
+
+.axis text,
+.aside {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header {
+    width: 70%;
+    margin-left: 16px;
+}
+
+.orange {
+    color: #FF9900;
+}
+
+.blue {
+    color: #0099FF;
+}
+
+circle {
+    fill: #0099FF;
+}
+
+
+.tooltip {
+    position: absolute;
+    z-index: 10;
+}
+
+.tooltip p {
+    background-color: rgba(255, 255, 255, .8);
+    padding: .5em 1em;
+    font-weight: bold;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+text.linelabel {
+    font-size: 9pt;
+    color: gray;
+}
+
+/*======================================================================
+    Style for Chart
+======================================================================*/
+  table {
+    margin-left: 50px;
+    padding: 30px;
+  }
+  th {
+    cursor: pointer;
+  }
+
+th {
+  line-height: 20px;
+  color: #fff;
+  background-color: rgb(0,153,255);
+  border-color: rgb(0,153,255);
+  font-weight: 400;
+  margin: 5px 10px;
+  padding: 5px 10px 5px 20px;
+}
+
+td {
+  padding: 5px 5px 5px 20px;
+}
+
+table {
+  border-collapse: collapse;
+}
+

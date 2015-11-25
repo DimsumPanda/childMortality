@@ -47,7 +47,7 @@ var line = d3.svg.line()
 
 
 //Create the empty SVG image
-var svg = d3.select("#vis")
+var svg = d3.select("#vis2")
 .append("svg")
 .attr("width", width)
 .attr("height", height);
