@@ -1,189 +1,111 @@
+/*===============================================================
+	Style sheet for the Final Project
+===============================================================*/
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    color: rgb(0,153,255);
+
+    font-family: Helvetica, sans-serif;
     background-image: url("unicef.jpg");
-}
 
-.container {
-    /*background-color: rgba(255, 255, 255, 0.9);*/
-    background-color: #fff;
-
-}
-
-.row {
-    padding-right: 1em;
-    padding-left: 1em;
 }
 
 h1 {
-    font-size: 30px;
-    margin-top: 0px;
+	font-size: 50px;
     text-align: center;
-}
-h2 {
-    font-size: 20px;
-}
-p {
-    color: #000;
+    color: rgb(0,153,255);
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: bold;
 }
 
-/*======================================================================
-    Style for the Chloropleth world map for child mortality
-======================================================================*/
-.countries {
+p {
+  padding: 20px;
+}
+
+.subtitle {
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    font-family: "Trebuchet MS";
+    margin-top: 0em;
+    font-weight: bold;
+}
+.container {
+    /*background-color: rgba(255, 255, 255, 0.9);*/
+    background-color: #fff;
+    margin-top: 1em;
+    padding-right: 3em;
+    padding-left: 3em;
+}
+/*===============================================================
+	Choropleth Map-specific
+===============================================================*/
+.countries_choropleth {
     stroke: #fff;
     stroke-width:1px;
 }
 
-.countries:hover{
+.countries_choropleth:hover{
     opacity: .7;
 }
 
-.legendLinear text {
+.legendLinear_choropleth text {
     font-size: 9px;
 }
 
-svg {
+.vis_choropleth {
     display: block;
     margin: auto;
-} 
-
-.d3-tip {
-    padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.5);
-    color: #0099FF;
-    border-radius: 2px;
-}
-.paleblue {
-    color: #d1e5f0;
-}
-.red {
-    color: #b2182b;
-}
-.underlineBold {
-    text-decoration: underline;
-    font-weight: bold;
-}
-/*======================================================================
-    Style for the Scrollytelling
-======================================================================*/
-#graphic {
-  padding-top: 60px;
 }
 
 
-#sections {
-  position: relative;
-  display: inline-block;
-  width: 250px;
-  top: 0px;
-  z-index: 90;
-  padding-bottom: 250px;
+/*===============================================================
+   Stepper
+===============================================================*/
+
+
+svg_stepper {
+    /*    padding: 1em;*/
+    background-color: rgb(255, 255, 255);
 }
 
-.step {
-  margin-bottom: 200px;
-  font-family: "TiemposTextWeb-Regular","Georgia";
-  font-size: 16px;
-  line-height: 23px;
-  color: #767678;
-}
-
-#sections .title {
-  font-family: Arial,Helvetica,"san-serif";
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 2px;
-  color: #262626;
-  line-height: 1.2em;
-}
-#extra-space {
-  height: 300px;
-}
-
-#vis2 {
-  display: inline-block;
-  position: fixed;
-  top: 60px;
-  z-index: 1;
-  margin-left: 0;
-  font-size: 10px;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: none;
-  shape-rendering: crispEdges;
-}
-
-path.line {
-  fill: none;
-  stroke-width: 1px;
-  stroke-opacity: 80%;
-}
-
-.line.normal {
-  stroke: gray;
-}
-
-.line.unfocused{
-  stroke-opacity: 40%;
-}
-
-.line.focused {
-  stroke-width: 2px;
-  stroke-opacity: 100%;
-  stroke: orange;
-}
-
-/*======================================================================
-    Style for Line Chart
-======================================================================*/
-
-svg rect:hover {
+svg_stepper rect:hover {
     opacity: .3;
 }
 
-svg circle:hover {
+svg_stepper circle:hover {
     opacity: .3;
 }
 
-svg g {
+svg_stepper g {
     fill: #ACACAC;
 }
 
-svg g text.label,
-svg g text.ylabel {
-    fill: #0099FF;
-
+svg_stepper g text.label_stepper,
+svg_stepper g text.ylabel_stepper {
+    fill: #2A2A2A;
 }
 
-svg {
+svg_stepper {
     background-color: white;
 }
 
-.axis path,
-.axis line {
+.axis_stepper path,
+.axis_stepper line {
     fill: none;
     stroke: #D3D3D3;
     stroke-width: 1px;
 }
 
-.line {
-    stroke: rgba(0 , 153, 255, 0.75);;
+.line_stepper {
+    stroke: #FF9900;
     fill: none;
+    stroke-opacity: 25%;
     stroke-width: 1px;
 }
 
-.criticalAreas {
+.ssAfrica {
     stroke: red;
     stroke-opacity: 50%;
-}
-
-.world {
-  stroke: rgba(0,0,0,1);
-    stroke-width: 2px;
 }
 
 .unfocused {
@@ -195,16 +117,13 @@ svg {
     stroke-opacity: 100%;
 }
 
-.axis text,
+
+.axis_stepper text,
 .aside {
-    font-size: 16px;
-    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 11px;
 }
 
-.header {
-    width: 70%;
-    margin-left: 16px;
-}
 
 .orange {
     color: #FF9900;
@@ -214,55 +133,24 @@ svg {
     color: #0099FF;
 }
 
-circle {
-    fill: #0099FF;
+.red {
+    color: red;
 }
 
-
-.tooltip {
+.tooltip_stepper {
     position: absolute;
     z-index: 10;
 }
 
-.tooltip p {
+.tooltip_stepper p {
     background-color: rgba(255, 255, 255, .8);
     padding: .5em 1em;
-    font-weight: bold;
+    font-size: 12px;
     line-height: 17px;
-    color: rgba(0, 0, 0, 0.75);
+    color: black;
 }
 
-text.linelabel {
-    font-size: 9pt;
-    color: gray;
+.tooltipHeader_stepper {
+    font-weight: 700;
+    font-size: 12.5px;
 }
-
-/*======================================================================
-    Style for Chart
-======================================================================*/
-  table {
-    margin-left: 50px;
-    padding: 30px;
-  }
-  th {
-    cursor: pointer;
-  }
-
-th {
-  line-height: 20px;
-  color: #fff;
-  background-color: rgb(0,153,255);
-  border-color: rgb(0,153,255);
-  font-weight: 400;
-  margin: 5px 10px;
-  padding: 5px 10px 5px 20px;
-}
-
-td {
-  padding: 5px 5px 5px 20px;
-}
-
-table {
-  border-collapse: collapse;
-}
-

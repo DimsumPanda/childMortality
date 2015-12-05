@@ -1,154 +1,54 @@
 <!DOCTYPE html>
-<!-- Modification of an example by Scott Murray from Knight D3 course -->
-<html lang="en">
+<!-- Starting Afresh: Week 14: Multiple charts. Working towards the final project  -->
+
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Child Mortality in SubSaharan Africa</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+		<!-- Link to Bootstrap stylesheet -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- Link to custom style.css -->
 		<link href="style.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="stepper.css" />
-	<link rel="stylesheet" href="stepper_vis.css" />
-		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"> -->
-		<!-- <link rel="stylesheet" href="line.css" /> -->
+
 	</head>
-	<body>
-		
-		<div class="container">
-			<h1>Child Mortality in SubSaharan Africa</h1>
-			<div class="row">
-			<h2>Under-Five Mortality Rates (per 1000 live births) in the World</h2>
-		    <p>Compared to the rest of the world, Sub-Saharan Africa has the highest child mortality rates. <span class="red underlineBold">Red</span> represents high child mortality rates and <span class="paleblue underlineBold">pale-blue</span> represents low child mortality rates.</p>
-		    <p>Source: <a href="http://data.worldbank.org/indicator/SH.DYN.MORT">WHO</a>. Data shown is most recent data for countries with data available.</p>
-		    
-		    <div id="vis"></div>
-		
-			</div>
 
-<div class="row">
-  <!-- Step Navigation UI -->
-    <div id="vis-nav">
-      <a href="#" id="step1" class="step-link active">Step1</a>
-      <a href="#" id="step2" class="step-link">Step2</a>
-      <a href="#" id="step3" class="step-link">Step3</a>
-      <a href="#" id="step4" class="step-link">Step4</a>
-      <a href="#" id="step5" class="step-link">Step5</a>
-    </div>
-  <!-- Container for Visualization -->
-    <div id="vis-container">
-      <div id="annotation-steps">
-        <div class="annotation-step" id="step1-annotation" style="display:block;">
-          <div class="annotation" id="step1-left-annotation" >
-            <h4>Child Mortality</h4>
-            <p>One of the Millenium Development Goals established in 2000 is to reduce child mortality across the world. In September 25, 2015 a set 17 Sustainable Development Goals (SDG) were adopted by the United Nations' world leaders and will continue to drive progress.
-        (Source: <a href="http://www.undp.org/content/undp/en/home/mdgoverview/post-2015-development-agenda.html">UNDP</a>)</p>
-          </div>
-          <div class="step annotation" id="step1-right-annotation" >
-            <h4>Right Annotation Title</h4>
-            <p>Here is the annotation text for the <strong>right</strong> annotation of step 1</p>
-          </div>
-        </div>
-        <div class="step annotation-step" id="step2-annotation">
-          <div class="annotation" id="step2-center-annotation" >
-            <h4>Center Annotation Title</h4>
-            <p>The number of under-five deaths has declined from about 12.7 million in 1990 to around 5.9 million in 2015. (Source: UNICEF)</p>
-          </div>
-        </div>
-        <div class="step annotation-step" id="step3-annotation">
-          <div class="annotation" id="step3-high-annotation" >
-            <h4>Some countries have low child mortality rates...</h4>
-            <p>Luxembourg has the lowest Child Mortality Rate in 2015 with 1.9 child deaths per 1,000 live births.</p>
-          </div>
-          <div class="step annotation" id="step3-low-annotation" >
-            <h4>...while other countries have much higher child mortality rates.</h4>
-            <p>Angola has the highest Child Mortality Rate in 2015 with 156.9 child deaths per 1,000 live births.</p>
-          </div>
-        </div>
-        <div class="step annotation-step" id="step4-annotation">
-          <div class="annotation" id="step1-right-annotation" >
-            <h4>Sub-Saharan Africa</h4>
-            <p>This region has the highest child mortality rates in the world. However, the annual rate of reduction has increased from 1.6 percent in 1990s to 4.1 percent in 2000-2015.</p>
-          </div>
-        </div>
-        <div class="step annotation-step" id="step5-annotation">
-          <div class="annotation" id="step1-right-annotation" >
-            <h4>Sub-Saharan Africa</h4>
-            <p>Sierra Leone has the highest cummulative child mortality rates from 1990-2015.</p>
-          </div>
-        </div>        
-
-        <div class="step annotation-step" id="step5-annotation">
-          <div class="annotation" id="step1-right-annotation" >
-            <h4>How come some countries reduce their child mortality rates more than others?</h4>
-            <p>Malawi has the highest rate of change from 1990 to 2015 among the countries in Sub-Saharan Africa. The country decreased its child mortality rates by 73.6%.</p>
-          </div>
-        </div>   
-
-      </div>
-      <div id="vis-canvas">
-    </div>
-</div>
-
-
-
-
-			<div class ="row">
-			<h1>Sub-Saharan Africa</h1>
-			<p>The region has the highest child mortality rates in the world. However, the annual rate of reduction has increased from 1.6 percent in the 1990s to 4.1 percent in 2000-2015. (Source: UNICEF)</p>
-
-			<p>(Instead of this chart, I will probably add the stepper with the same graphs that I used for my scrollytelling this week.)</p>
-
-			<div id="lineChart"></div>
-			</div>
-
-			<div class ="row" id="page">
-			<h1>Why do some of the countries higher child mortality rates than others in Sub-Saharan Africa?</h1>
-			<p>Angola has the highest child mortality rate as of 2015. It also has the third highest number of child mortality due to inadequate water, sanitation, and hygeine</p>
-
-			<p>"Water, Sanitation, and Hygeine" refers to the number of Under-5 deaths caused by inadequate Water, Hygeine, and Sanitation.</p>
-
-			<div id="table"></div>
-			</div>
-
-
-
-			
-
+<body>
+	<div class="container">
+		<h1>IS THE WORLD IMPROVING?</h1>
+			<h2 class="subtitle">Changes in Child Mortality Rates</h2>
+		<div class="row">
+			<p>Overall description about child mortality rates. A little bit about the history</p>
 		</div>
 
-		<!-- Scripts for map -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	
+		<!-- Choropleth Map row -->
+		<div class="row" id="choroplethmap">
+			
+				<h3>Global Under-Five Mortality Rates in 2015</h3>
+					<p>Mortality Rates for the year 2015. All over the world so and so amount of children under-five die each year. Some areas are more serious than others.</p>
+				<div id="vis_choropleth">
+			</div>
+		</div>
 
-		<script src="//d3js.org/d3.v3.min.js"></script>
-		<script src="//d3js.org/queue.v1.min.js"></script>
-		<script src="d3-legend.min.js"></script>
-		<script src="//d3js.org/topojson.v1.min.js"></script>
-		<script type="text/javascript" src="tooltip.js"></script>
-		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-
-		<!-- Scripts for scrollytelling -->
-		<!--
-		<script src="mfreeman_scroller.js"></script>
-		<script src="line_chart_refactor.js"></script>
-		<script src="scroller_settings.js"></script>
-	-->
-		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-		
-		<script type="text/javascript" src="choropleth.js"></script>
-		<script type="text/javascript" src="lineChart.js"></script>
-
-		<script src="stepper_vis.js"></script>
-		<script src="stepper.js"></script>
-
-		<script type="text/javascript" src="stupidtable.js"></script>
-		<script type="text/javascript" src="sortableChart.js"></script>
+		<!-- Line Graph By Region Stepper row -->
+		<div class="row" id="vis_stepper">
+			<h3>However, overall the world is in a decline</h3>
+				<p>Add Scrollytelling here.</p>
+			<div id="vis_stepper"></div>
+		</div>
 
 
+	</div> <!-- End of container -->
+<!-- ====================================================  -->
+<!-- Script files -->
+<!-- ====================================================  -->
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="//d3js.org/queue.v1.min.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<!-- Map-specific -->
+	<script src="d3-legend.min.js"></script>
+	<script src="//d3js.org/topojson.v1.min.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	<script src="source.js"></script>
+</body>
 
-		
-
-	</body>
 </html>
