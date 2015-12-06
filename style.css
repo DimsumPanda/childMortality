@@ -16,9 +16,9 @@ h1 {
     font-family: "Trebuchet MS", sans-serif;
     font-weight: bold;
 }
-
-p {
-  padding: 20px;
+h3 {
+    /*color: rgb(0,153,255);*/
+    font-weight: bold;
 }
 
 .subtitle {
@@ -30,11 +30,23 @@ p {
     font-weight: bold;
 }
 .container {
-    /*background-color: rgba(255, 255, 255, 0.9);*/
+    /*background-color: rgba(255, 255, 255, 0.98);*/
     background-color: #fff;
     margin-top: 1em;
     padding-right: 3em;
     padding-left: 3em;
+    max-width: 900px;
+}
+
+p {
+  padding: 1em;
+  margin: 0em;
+}
+
+.source {
+    font-style: italic;
+    /*color: rgb(0,153,255);*/
+    color: #8A8A8A;
 }
 /*===============================================================
 	Choropleth Map-specific
@@ -154,3 +166,31 @@ svg_stepper {
     font-weight: 700;
     font-size: 12.5px;
 }
+
+/*===============================================================
+   Top 20
+===============================================================*/
+
+    #vis_top20 {
+        padding-left: 75px;
+    }
+
+    #menu_top20 {
+        padding-bottom: 40px;
+    }
+
+    #menu_top20 select {
+    background: #ccc;
+       width: 300px;
+       padding: 5px;
+       font-size: 14px;
+       line-height: 1;
+       border: 0;
+       border-radius: 0;
+       height: 34px;
+    }
+
+    .labels_top20 {
+        fill: white;
+        font-size: 10px;
+    }

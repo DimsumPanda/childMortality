@@ -16,7 +16,7 @@
 		<h1>IS THE WORLD IMPROVING?</h1>
 			<h2 class="subtitle">Changes in Child Mortality Rates</h2>
 		<div class="row">
-			<p>Overall description about child mortality rates. A little bit about the history</p>
+			<p>Twenty-Five years ago, the Convention on the Rights of the Child brought the problem of child-mortality to the world's attention. Since 1990, many changes have been made, but the Millenium Development Goal - to reduce the mortality rate of children under five years of age by two-thirds between 1990 and 2015 - has still not been achieved. However, there has still been significant progress and the global under-five mortality rate has fallen by 53 percent since 1990.<br /> <span class="source">Source: UNICEF, "Committing to Child Survival: A Promise Renewed (Progress Report 2015)"</span></p>
 		</div>
 
 		<!-- Choropleth Map row -->
@@ -34,8 +34,25 @@
 				<p>Add Scrollytelling here.</p>
 			<div id="vis_stepper"></div>
 		</div>
+		
+		<!-- Top 20 Bar Graph row -->
+		<div class="row" id="vis_top20">
+			<h3>Sub-Saharan Countries with the highest...</h3>
+				<p>WorldBank Data, Last Updated: November 12, 2015</p>
+				<div id="menu_top20">
+					<select>
+					<!-- //values has to match columns in csv -->
+					<option value="Year1990">under-five mortality rate (1990).</option>
+			        <option value="Year2015">under-five mortality rate (2015).</option>
+			        <option value="PercentChange">percentage decline in under-five mortality rate.</option>
+
+					</select>
+				</div>
+			<div id="vis_top20"></div>
+		</div>
 
 
+	<p>Visualization Created by Barbara Poon, <a href="www.barbarapoon.me">www.barbarapoon.me</a></p>
 	</div> <!-- End of container -->
 <!-- ====================================================  -->
 <!-- Script files -->

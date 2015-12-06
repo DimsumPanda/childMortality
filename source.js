@@ -322,3 +322,158 @@ var svg_stepper = d3.select("#vis_stepper")
 
 
 }); // end of data csv
+
+// ====================================================================
+// Top 20 Javascript
+// ====================================================================
+
+    var width_top20 = 400;
+    var height_top20 = 500;
+
+    var format = d3.format(".1%");
+    // Set up the svg
+
+    var vis_top20 = d3.select("#vis_top20").append("svg");
+    var svg_top20 = vis_top20
+            .attr("width", width_top20+100)
+            .attr("height", height_top20+100); // adding some random padding
+        svg_top20.append("rect")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("fill", "none");
+
+    d3.csv("barchart_calculate.csv", function(error, data_top20) {
+        //Always do this first --> put into column and dataset. same
+        var column_top20 = d3.select("#menu_top20 select").property("value");
+        var dataset_top20 = top20_by_column(data_top20, column_top20);
+
+        console.log(column_top20, dataset_top20);
+
+        redraw(dataset_top20, column_top20);
+
+        //setup our UI -- requires access to data variable, so inside csv
+
+        d3.select("#menu_top20 select")
+            .on("change", function() {
+                column_top20 = d3.select("#menu_top20 select").property("value");//TODO: How do you get the current value of the select menu?
+                dataset_top20 = top20_by_column(data_top20, column_top20);
+                //TODO: How do you get the current filter/storted data?
+                console.log(column_top20, dataset_top20);
+                redraw(dataset_top20, column_top20);
+        });
+
+    }) // end csv
+
+    //make the bars for the first data set.  They will be red at first  
+    
+    function top20_by_column(data, column) {
+
+            return data.sort(function(a, b) {
+            // return b[column] - a[column]; //descending order, biggest at the top!
+            // return b.value - a.value;
+            return b[column] - a[column];
+        }).slice(0, 20);
+        // TODO: fill in this function.  The answer direction is in the wiki page for week8.
+        // You want to sort the data by the column, descending order, and then slice.
+
+        }  
+    // This function is used to draw and update the data. It takes different data each time.
+
+    function redraw(data, column) {
+
+        var max_top20 = d3.max(data, function(d) {return +d[column];});
+        // always reset the domains when you call data
+        // right up above. Find max.
+        xScale_top20 = d3.scale.linear()
+            .domain([0, max_top20])
+            // .domain([0, d3.max(data, function(d) {return +d[column];});])//TODO: what goes here?
+            .range([0, width_top20]);
+
+        yScale_top20 = d3.scale.ordinal()
+            .domain(d3.range(data.length))
+            .rangeBands([0, height_top20], .2);
+    // key would be country (dont forget it's captialized) return d.Country
+        var bars_top20 = vis_top20.selectAll("rect.bars_top20")
+            .data(data, function (d) { return d.Country;});//TODO: what is your key value? // key function!
+
+    //update -- existing bars get blue when we "redraw". We don't change labels. 
+        bars_top20
+            .attr("fill", "steelblue");
+
+        //enter - NEW bars get set to darkorange when we "redraw."
+        bars_top20.enter()
+            .append("rect")
+            .attr("class", "bars_top20")
+            .attr("fill", "darkorange");
+
+        //exit -- remove ones that aren't in the index set; not in the new dataset
+        bars_top20.exit()
+            .transition()
+            .duration(300)
+            .ease("exp")
+            .attr("width", 0)
+            .remove();        
+
+        // transition -- move the bars to proper widths and location
+        // grow bar to size. of Xscale
+        // height -- look back at how the barchart is built using scale. ordinal bar height.
+        bars_top20
+            .transition()
+            .duration(300)
+            .ease("quad")
+            .attr("width", function(d) {
+                return xScale_top20(+d[column]);
+                //TODO: what goes here?);
+            })
+            .attr("height", yScale_top20.rangeBand())//TODO: In an ordinal scale bar chart, what goes here?)
+            .attr("transform", function(d,i) {
+                return "translate(" + [0, yScale_top20(i)] + ")"
+            });
+
+        //  We are attaching the labels separately, not in a group with the bars...
+
+        // label is country return d.Country
+        var labels_top20 = svg_top20.selectAll("text.labels_top20")
+            .data(data, function (d) { return d.Country; });//TODO: what is your key here? same as above. // key function!            
+
+        // everything gets a class and a text field.  But we assign attributes in the transition.
+        labels_top20.enter()
+            .append("text")
+            .attr("class", "labels_top20");
+
+        labels_top20.exit()
+            .remove();
+
+    // Figure out what we're formatting. Format is at the top, a percentage
+        labels_top20.transition()
+            .duration(500)//TODO: How long do you want this to last?)
+            .text(function(d) {
+
+                if (d.Country == "Malawi") {
+                    return "************ " + "MALAWI" + " " +(+d[column]) + " ************";
+                }
+                if (d.Country == "Malawi" && column == "PercentChange") {
+                    return "************ " + "MALAWI" + " " +(+d[column]) + "% ************";
+                }
+                if (d.Country == "Niger") {
+                    return "************ " + "NIGER" + " " +(+d[column]) + " ************";
+                }
+                if (d.Country == "Niger" && column == "PercentChange") {
+                    return "************ " + "NIGER" + " " +(+d[column]) + "% ************";
+                }
+                else if (column == "PercentChange"){
+                    return d.Country + " " + (+d[column]) + "%";
+                }
+
+                else return d.Country + " " + (+d[column]);
+                //TODO: what goes here?
+            })
+            .attr("transform", function(d,i) {
+                    return "translate(" + xScale_top20(+d[column]) + "," + yScale_top20(i) + ")"
+            })
+            .attr("dy", "1.2em")
+            .attr("dx", "-3px")
+            .attr("text-anchor", "end");
+
+
+        } // end of draw function            
