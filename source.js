@@ -257,7 +257,7 @@ var svg_stepper = d3.select("#vis_stepper")
         .attr("d", line_stepper);
 
 /*======================================================================
-  Adding the Axes
+  Multiple Lines: Adding the Axes
 ======================================================================*/
     svg_stepper.append("g")
         .attr("class", "x axis_stepper")
@@ -285,7 +285,7 @@ var svg_stepper = d3.select("#vis_stepper")
         .text("Under 5 Mortality Rate");
 
     /*======================================================================
-      Mouse Functions
+      Multiple Lines: Mouse Functions
     ======================================================================*/
     d3.selectAll("g.lines_stepper")
         .on("mouseover", mouseoverFunc_stepper)
@@ -330,19 +330,21 @@ var svg_stepper = d3.select("#vis_stepper")
     var width_top20 = 400;
     var height_top20 = 500;
 
-    var format = d3.format(".1%");
+    // var format = d3.format(".1%");
     // Set up the svg
 
     var vis_top20 = d3.select("#vis_top20").append("svg");
     var svg_top20 = vis_top20
             .attr("width", width_top20+100)
             .attr("height", height_top20+100); // adding some random padding
+        
         svg_top20.append("rect")
             .attr("width", "100%")
             .attr("height", "100%")
             .attr("fill", "none");
 
     d3.csv("barchart_calculate.csv", function(error, data_top20) {
+        
         //Always do this first --> put into column and dataset. same
         var column_top20 = d3.select("#menu_top20 select").property("value");
         var dataset_top20 = top20_by_column(data_top20, column_top20);
@@ -389,6 +391,8 @@ var svg_stepper = d3.select("#vis_stepper")
             // .domain([0, d3.max(data, function(d) {return +d[column];});])//TODO: what goes here?
             .range([0, width_top20]);
 
+        console.log("domain: ", xScale_top20.domain());
+
         yScale_top20 = d3.scale.ordinal()
             .domain(d3.range(data.length))
             .rangeBands([0, height_top20], .2);
@@ -405,14 +409,7 @@ var svg_stepper = d3.select("#vis_stepper")
             .append("rect")
             .attr("class", "bars_top20")
             .attr("fill", "darkorange");
-
-        //exit -- remove ones that aren't in the index set; not in the new dataset
-        bars_top20.exit()
-            .transition()
-            .duration(300)
-            .ease("exp")
-            .attr("width", 0)
-            .remove();        
+        
 
         // transition -- move the bars to proper widths and location
         // grow bar to size. of Xscale
@@ -430,6 +427,14 @@ var svg_stepper = d3.select("#vis_stepper")
                 return "translate(" + [0, yScale_top20(i)] + ")"
             });
 
+
+        //exit -- remove ones that aren't in the index set; not in the new dataset
+        bars_top20.exit()
+            .transition()
+            .duration(300)
+            .ease("exp")
+            .attr("width", 0)
+            .remove();
         //  We are attaching the labels separately, not in a group with the bars...
 
         // label is country return d.Country
@@ -449,18 +454,20 @@ var svg_stepper = d3.select("#vis_stepper")
             .duration(500)//TODO: How long do you want this to last?)
             .text(function(d) {
 
-                if (d.Country == "Malawi") {
-                    return "************ " + "MALAWI" + " " +(+d[column]) + " ************";
-                }
                 if (d.Country == "Malawi" && column == "PercentChange") {
                     return "************ " + "MALAWI" + " " +(+d[column]) + "% ************";
                 }
-                if (d.Country == "Niger") {
-                    return "************ " + "NIGER" + " " +(+d[column]) + " ************";
+                else if (d.Country == "Malawi") {
+                    return "************ " + "MALAWI" + " " +(+d[column]) + " ************";
                 }
-                if (d.Country == "Niger" && column == "PercentChange") {
+
+                else if (d.Country == "Niger" && column == "PercentChange") {
                     return "************ " + "NIGER" + " " +(+d[column]) + "% ************";
                 }
+                else if (d.Country == "Niger") {
+                    return "************ " + "NIGER" + " " +(+d[column]) + " ************";
+                }
+
                 else if (column == "PercentChange"){
                     return d.Country + " " + (+d[column]) + "%";
                 }
