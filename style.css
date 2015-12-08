@@ -191,6 +191,11 @@ svg_stepper {
     }
 
     .labels_top20 {
-        fill: white;
-        font-size: 10px;
+        font-family: Arial;
+        /*dark-grey*/
+        /*fill: #424242; */
+        /*deep-ink, a very dark-blue*/
+        fill: #030C22;
+        font-size: 12px;
+        font-weight: bold;
     }

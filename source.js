@@ -328,7 +328,7 @@ var svg_stepper = d3.select("#vis_stepper")
 // ====================================================================
 
     var width_top20 = 400;
-    var height_top20 = 500;
+    var height_top20 = 550;
 
     // var format = d3.format(".1%");
     // Set up the svg
@@ -391,7 +391,7 @@ var svg_stepper = d3.select("#vis_stepper")
             // .domain([0, d3.max(data, function(d) {return +d[column];});])//TODO: what goes here?
             .range([0, width_top20]);
 
-        console.log("domain: ", xScale_top20.domain());
+        // console.log("domain: ", xScale_top20.domain());
 
         yScale_top20 = d3.scale.ordinal()
             .domain(d3.range(data.length))
@@ -402,14 +402,26 @@ var svg_stepper = d3.select("#vis_stepper")
 
     //update -- existing bars get blue when we "redraw". We don't change labels. 
         bars_top20
-            .attr("fill", "steelblue");
+            .attr("fill", function (d) {
+                if (d.Country == "Malawi" || d.Country == "Niger")
+                    return "rgb(247,148,29)";
+                else
+                    return "rgba(0,153,255,0.8"});
+            
 
         //enter - NEW bars get set to darkorange when we "redraw."
         bars_top20.enter()
             .append("rect")
             .attr("class", "bars_top20")
-            .attr("fill", "darkorange");
-        
+            .attr("fill", function (d) {
+                if (d.Country == "Malawi" || d.Country == "Niger")
+                    return "rgb(247,148,29)"; //orange
+                else
+                    return "rgba(247,148,29,0.8)"});            
+
+
+
+
 
         // transition -- move the bars to proper widths and location
         // grow bar to size. of Xscale
@@ -437,6 +449,7 @@ var svg_stepper = d3.select("#vis_stepper")
             .remove();
         //  We are attaching the labels separately, not in a group with the bars...
 
+
         // label is country return d.Country
         var labels_top20 = svg_top20.selectAll("text.labels_top20")
             .data(data, function (d) { return d.Country; });//TODO: what is your key here? same as above. // key function!            
@@ -455,17 +468,17 @@ var svg_stepper = d3.select("#vis_stepper")
             .text(function(d) {
 
                 if (d.Country == "Malawi" && column == "PercentChange") {
-                    return "************ " + "MALAWI" + " " +(+d[column]) + "% ************";
+                    return "************ " + "MALAWI" + " " +(+d[column]) + "%";
                 }
                 else if (d.Country == "Malawi") {
-                    return "************ " + "MALAWI" + " " +(+d[column]) + " ************";
+                    return "************ " + "MALAWI" + " " +(+d[column]);
                 }
 
                 else if (d.Country == "Niger" && column == "PercentChange") {
-                    return "************ " + "NIGER" + " " +(+d[column]) + "% ************";
+                    return "************ " + "NIGER" + " " +(+d[column]) + "%";
                 }
                 else if (d.Country == "Niger") {
-                    return "************ " + "NIGER" + " " +(+d[column]) + " ************";
+                    return "************ " + "NIGER" + " " +(+d[column]);
                 }
 
                 else if (column == "PercentChange"){
