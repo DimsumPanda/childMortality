@@ -4,7 +4,7 @@
 
 body {
 
-    font-family: Helvetica, sans-serif;
+    /*font-family: Helvetica, sans-serif;*/
     background-image: url("unicef.jpg");
 
 }
@@ -13,7 +13,7 @@ h1 {
 	font-size: 50px;
     text-align: center;
     color: rgb(0,153,255);
-    font-family: "Trebuchet MS", sans-serif;
+    /*font-family: "Trebuchet MS", sans-serif;*/
     font-weight: bold;
 }
 h3 {
@@ -25,7 +25,7 @@ h3 {
     font-size: 30px;
     text-align: center;
     color: #000;
-    font-family: "Trebuchet MS";
+    /*font-family: "Trebuchet MS";*/
     margin-top: 0em;
     font-weight: bold;
 }
@@ -168,16 +168,23 @@ svg_stepper {
 }
 
 /*===============================================================
-   Top 20
+   Top 20: BarChart
 ===============================================================*/
 
-    #vis_top20 {
-        padding-left: 75px;
+    #menu_top20 {
+        display: block;
+        float: right;
+        padding-bottom: 40px;
+        padding-right: 50px;
     }
 
-    #menu_top20 {
-        padding-bottom: 40px;
+    #vis_top20 {
+        display: block;
+        /*padding-left: 75px;*/
+        float: right;
+        clear: right;
     }
+
 
     #menu_top20 select {
     background: #ccc;
@@ -196,6 +203,71 @@ svg_stepper {
         /*fill: #424242; */
         /*deep-ink, a very dark-blue*/
         fill: #030C22;
+        /*night teal: colourlovers*/
+        /*fill: #003E5F;*/
+        /*fill: #000;*/
         font-size: 12px;
         font-weight: bold;
     }
+/*===============================================================
+   Top 20: Dot Plot
+===============================================================*/
+
+#vis_dotplot {
+    display: block;
+    float: left;
+    clear: left;
+    margin-top: -675px;
+}
+
+div.y2015 {
+    color: #6699FF;
+    display: inline;
+}
+div.y1990 {
+    color: orange;
+    display: inline;
+}
+
+circle {
+    stroke-width: 2;
+}
+
+circle.y2015 {
+    fill: #6699FF;
+}
+
+circle.y1990 {
+    fill: orange;
+}
+
+circle:hover {
+    stroke-width: 3;
+    stroke: white;
+}
+
+line.grid_dotplot {
+    stroke: #eee;
+}
+
+line.between_dotplot {
+    stroke: black;
+}
+
+.axis_dotplot path,
+.axis_dotplot line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis_dotplot text {
+    font-size: 11px;
+}
+
+
+.ylabel_dotplot,.xlabel_dotplot {
+    font-size: 14px;
+    color: #0099FF;
+    font-weight: bold;
+}

@@ -51,7 +51,7 @@ function typeAndSet(d) {
 function getColor(d) {
     var dataRow_choropleth = countryById_choropleth.get(d.id);
     if (dataRow_choropleth) {
-        console.log(dataRow_choropleth);
+        // console.log(dataRow_choropleth);
         return colorScale_choropleth(dataRow_choropleth.mortality);
     } else {
         console.log("no dataRow", d);
@@ -91,7 +91,7 @@ function loaded(error, countries, mortalityRate) {
         // .on('mouseover', tip.show)
         // .on('mouseout', tip.hide)
         .attr('fill', function(d,i) {
-            console.log(d.properties.name);
+            // console.log(d.properties.name);
             return getColor(d);
         })
         .call(d3.helper.tooltip_charts(
@@ -313,7 +313,7 @@ var svg_stepper = d3.select("#vis_stepper")
     }
 
     function mousemoveFunc_stepper(d) {
-        console.log("events", window.event, d3.event);
+        // console.log("events", window.event, d3.event);
         tooltip_stepper
             .style("top", (d3.event.pageY - 45) + "px")
             .style("left", (d3.event.pageX + 5) + "px");
@@ -324,10 +324,10 @@ var svg_stepper = d3.select("#vis_stepper")
 }); // end of data csv
 
 // ====================================================================
-// Top 20 Javascript
+// Top 20 Javascript: Bar Chart
 // ====================================================================
 
-    var width_top20 = 400;
+    var width_top20 = 250;
     var height_top20 = 550;
 
     // var format = d3.format(".1%");
@@ -400,13 +400,13 @@ var svg_stepper = d3.select("#vis_stepper")
         var bars_top20 = vis_top20.selectAll("rect.bars_top20")
             .data(data, function (d) { return d.Country;});//TODO: what is your key value? // key function!
 
-    //update -- existing bars get blue when we "redraw". We don't change labels. 
+    //update -- existing bars get turned into darker orange when we "redraw". We don't change labels. 
         bars_top20
             .attr("fill", function (d) {
                 if (d.Country == "Malawi" || d.Country == "Niger")
-                    return "rgb(247,148,29)";
+                    return "rgba(0,153,255, 1)"; //cyan
                 else
-                    return "rgba(0,153,255,0.8"});
+                    return "rgba(247,148,29,1)"}); //orange
             
 
         //enter - NEW bars get set to darkorange when we "redraw."
@@ -415,9 +415,9 @@ var svg_stepper = d3.select("#vis_stepper")
             .attr("class", "bars_top20")
             .attr("fill", function (d) {
                 if (d.Country == "Malawi" || d.Country == "Niger")
-                    return "rgb(247,148,29)"; //orange
+                    return "rgba(0,153,255, 1)"; //cyan
                 else
-                    return "rgba(247,148,29,0.8)"});            
+                    return "rgba(247,148,29,0.7)"}); // lighter orange           
 
 
 
@@ -497,3 +497,182 @@ var svg_stepper = d3.select("#vis_stepper")
 
 
         } // end of draw function            
+
+// ====================================================================
+// Top 20 Javascript: Dot Plot
+// ====================================================================
+
+// this is the size of the svg container -- the white part
+var fullwidth_dotplot = 500,
+    fullheight_dotplot = 700;
+
+// these are the margins around the graph. Axes labels go in margins.
+var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 150};
+
+var width_dotplot = fullwidth_dotplot - margin_dotplot.left - margin_dotplot.right,
+    height_dotplot = fullheight_dotplot - margin_dotplot.top - margin_dotplot.bottom;
+
+var widthScale_dotplot = d3.scale.linear().range([ 0, width_dotplot]);
+var heightScale_dotplot = d3.scale.ordinal().rangeRoundBands([ 0, height_dotplot], 0.2);    
+var xAxis_dotplot = d3.svg.axis().scale(widthScale_dotplot).orient("bottom");
+var yAxis_dotplot = d3.svg.axis()
+                        .scale(heightScale_dotplot)
+                        .orient("left")
+                        .innerTickSize([0]);
+
+var svg_dotplot = d3.select("#vis_dotplot")
+                        .append("svg")
+                        .attr("width", fullwidth_dotplot)
+                        .attr("height", fullheight_dotplot);
+
+d3.csv("barchart_calculate.csv", function(error, data) {
+        if (error) {
+                console.log("error reading file");
+            }
+
+        // data.sort(function(a, b) {
+        //         return d3.descending(+a.Year2015, +b.Year2015);
+        //     });
+        //     // in this case, i know it's out of 100 because it's percents.
+            widthScale_dotplot.domain([ 0, d3.max(data, function(d) {
+                        return +d.Year1990;
+                    }) ]);
+            // js map: will make a new array out of all the d.name fields
+            heightScale_dotplot.domain(data.map(function(d) { return d.Country; } ));
+
+            // Make the faint lines from y labels to highest dot
+
+            var linesGrid_dotplot = svg_dotplot.selectAll("lines.grid_dotplot")
+                                        .data(data)
+                                        .enter()
+                                        .append("line");
+            linesGrid_dotplot.attr("class", "grid_dotplot")
+                        .attr("x1", margin_dotplot.left)
+                        .attr("y1", function(d) {
+                            return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand();
+                        })
+                        .attr("x2", function(d) {
+                            return margin_dotplot.left + widthScale_dotplot(+d.Year2015);
+
+                        })
+                        .attr("y2", function(d) {
+                            return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand();
+                        });
+
+            // Make the dotted lines between the dots
+
+            var linesBetween_dotplot = svg_dotplot.selectAll("lines.between_dotplot")
+                                            .data(data)
+                                            .enter()
+                                            .append("line");
+
+            linesBetween_dotplot.attr("class", "between_dotplot")
+                        .attr("x1", function(d) {
+                            return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
+                        })
+                        .attr("y1", function(d) {
+                            return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+                        })
+                        .attr("x2", function(d) {
+                            return margin_dotplot.left + widthScale_dotplot(d.Year2015);
+                        })
+                        .attr("y2", function(d) {
+                            return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+                        })
+                        .attr("stroke-dasharray", "5,5")
+                        .attr("stroke-width", function(d, i) {
+                            if (i == 1) {
+                                return "1";
+                            } else {
+                                return "0.5";
+                            }
+                        });
+                        // Make the dots for 1990
+
+        var dots1990 = svg_dotplot.selectAll("circle.y1990")
+                            .data(data)
+                            .enter()
+                            .append("circle");
+
+                            dots1990
+                            .attr("class", "y1990")
+                            .attr("cx", function(d) {
+                                return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
+                            })
+                            .attr("r", heightScale_dotplot.rangeBand()/2)
+                            .attr("cy", function(d) {
+                                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+                            })
+                            .style("stroke", function(d){
+                                if (d.Country === "Malawi") {
+                                    return "black";
+                                }
+                            })
+                            .style("fill", function(d){
+                                if (d.Country === "Malawi") {
+                                    return "darkorange";
+                                }
+                            })
+                            .append("title")
+                            .text(function(d) {
+                                return d.Country + " in 1990: " + d.Year1990;
+                            });
+            // Make the dots for 2013
+
+            var dots2015 = svg_dotplot.selectAll("circle.y2015")
+                                .data(data)
+                                .enter()
+                                .append("circle");
+
+            dots2015
+                .attr("class", "y2015")
+                .attr("cx", function(d) {
+                    return margin_dotplot.left + widthScale_dotplot(+d.Year2015);
+                })
+                .attr("r", heightScale_dotplot.rangeBand()/2)
+                .attr("cy", function(d) {
+                    return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+                })
+                .style("stroke", function(d){
+                    if (d.Country === "United States of America") {
+                        return "black";
+                    }
+                })
+                .style("fill", function(d){
+                    if (d.Country === "United States of America") {
+                        return "#476BB2";
+                    }
+                })
+                .append("title")
+                .text(function(d) {
+                    return d.Country + " in 2015: " + d.Year2015;
+                });
+
+            // add the axes
+
+            svg_dotplot.append("g")
+                        .attr("class", "x_dotplot axis_dotplot")
+                        .attr("transform", "translate(" + margin_dotplot.left + "," + height_dotplot + ")")
+                        .call(xAxis_dotplot);
+
+            svg_dotplot.append("g")
+            .attr("class", "y_dotplot axis_dotplot")
+            .attr("transform", "translate(" + margin_dotplot.left + ",0)")
+            .call(yAxis_dotplot);
+
+            svg_dotplot.append("text")
+            .attr("class", "xlabel_dotplot")
+            .attr("transform", "translate(" + (margin_dotplot.left + width_dotplot / 2) + " ," +
+                (height_dotplot + margin_dotplot.bottom) + ")")
+            .style("text-anchor", "middle")
+            .text("Child Mortality Rate per 1,000 live births");
+            
+            // svg_dotplot.append("text")
+            //     .attr("class", "ylabel_dotplot")
+            //     .attr("transform", "rotate(-90)")
+            //     .attr("y", 100)
+            //     .attr("x", 0 - (height_dotplot / 2))
+            //     .style("text-anchor", "end")
+            //     .text("Country");
+
+    });
