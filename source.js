@@ -38,7 +38,7 @@ var countryById_choropleth = d3.map();
 
 queue()
     .defer(d3.json, "countries.json")
-    .defer(d3.csv, "childMortality_2015.csv", typeAndSet) // process
+    .defer(d3.csv, "data/childMortality_2015.csv", typeAndSet) // process
     .await(loaded);
 
 
@@ -183,7 +183,7 @@ var svg_stepper = d3.select("#vis_stepper")
    Creating the Multiple Lines from the Data
  ======================================================================*/
 
- d3.csv("U5MRwithWorld.csv", function (data) {
+ d3.csv("data/U5MRwithWorld.csv", function (data) {
 
     var years_stepper = d3.keys(data[0]).slice(0, 26); //
     console.log(years_stepper);
@@ -343,7 +343,7 @@ var svg_stepper = d3.select("#vis_stepper")
             .attr("height", "100%")
             .attr("fill", "none");
 
-    d3.csv("barchart_calculate.csv", function(error, data_top20) {
+    d3.csv("data/barchart_calculate.csv", function(error, data_top20) {
         
         //Always do this first --> put into column and dataset. same
         var column_top20 = d3.select("#menu_top20 select").property("value");
@@ -351,7 +351,7 @@ var svg_stepper = d3.select("#vis_stepper")
 
         console.log(column_top20, dataset_top20);
 
-        redraw(dataset_top20, column_top20);
+        redrawBar(dataset_top20, column_top20);
 
         //setup our UI -- requires access to data variable, so inside csv
 
@@ -361,7 +361,7 @@ var svg_stepper = d3.select("#vis_stepper")
                 dataset_top20 = top20_by_column(data_top20, column_top20);
                 //TODO: How do you get the current filter/storted data?
                 console.log(column_top20, dataset_top20);
-                redraw(dataset_top20, column_top20);
+                redrawBar(dataset_top20, column_top20);
         });
 
     }) // end csv
@@ -381,7 +381,7 @@ var svg_stepper = d3.select("#vis_stepper")
         }  
     // This function is used to draw and update the data. It takes different data each time.
 
-    function redraw(data, column) {
+    function redrawBar(data, column) {
 
         var max_top20 = d3.max(data, function(d) {return +d[column];});
         // always reset the domains when you call data
@@ -525,7 +525,7 @@ var svg_dotplot = d3.select("#vis_dotplot")
                         .attr("width", fullwidth_dotplot)
                         .attr("height", fullheight_dotplot);
 
-d3.csv("barchart_calculate.csv", function(error, data) {
+d3.csv("data/barchart_calculate.csv", function(error, data) {
         if (error) {
                 console.log("error reading file");
             }
@@ -730,11 +730,14 @@ d3.csv("barchart_calculate.csv", function(error, data) {
 
         
 queue()
-    .defer(d3.csv, "scatter1990.csv")
-    .defer(d3.csv, "scatter2015.csv") // process
+    .defer(d3.csv, "data/scatter1990.csv")
+    .defer(d3.csv, "data/scatter2015.csv") // process
     .await(loaded_scatter);
 
-var curSelection_scatter = button.property("id");
+// var curSelection_scatter = button.attr('id');
+var curSelection_scatter = $("button").click(function() {
+                                this.id; // or alert($(this).attr('id'));
+                            });
 
     function loaded_scatter(error, data1990, data2015) {
 
@@ -875,11 +878,16 @@ var curSelection_scatter = button.property("id");
             .duration(1000)
             .call(yAxis_scatter);
 
-        var labels_scatter = svg_scatter.selectAll("text.dotlabels_scatter")
-            .data(data, function(d) {
+            //filter out the data for only Niger and Malawi
+        data = data.filter(function(d) {
             if (d.Country == "Malawi" || d.Country == "Niger"){
                 return d.Country;
-            } else {}
+            }
+        });
+// join --- not a filter
+        var labels_scatter = svg_scatter.selectAll("text.dotlabels_scatter")
+            .data(data, function(d) {
+                return d.Country;
         });
 
 

@@ -39,7 +39,8 @@ h3 {
 }
 
 p {
-  padding: 1em;
+  /*padding: 1em 1em 0.5em 1em;*/
+  paddiing: 1em;
   margin: 0em;
 }
 
@@ -51,6 +52,11 @@ p {
     color: #8A8A8A;
     text-align: right;
     margin-bottom: 1em;
+}
+
+.cyan-bold{
+    color: rgb(0,153,255);
+    font-weight: bold;
 }
 /*===============================================================
 	Choropleth Map-specific
