@@ -748,7 +748,7 @@ var curSelection_scatter = button.property("id");
                 d3.select("button#data2015").classed("selected", false);
                 d3.select("button#data1990").classed("selected", true);
                 curSelection_scatter = "data1990";
-                redraw(data1990, curSelection_scatter); 
+                redrawScatter(data1990, curSelection_scatter); 
             });
 
         d3.select("#data2015")
@@ -757,10 +757,10 @@ var curSelection_scatter = button.property("id");
                 d3.select("button#data1990").classed("selected", false);
                 d3.select("button#data2015").classed("selected", true);
                 vcurSelection_scatter = "data2015";
-                redraw(data2015, curSelection_scatter);
+                redrawScatter(data2015, curSelection_scatter);
             });
         d3.select("button#data1990").classed("selected", true);
-        redraw(data1990, curSelection_scatter);
+        redrawScatter(data1990, curSelection_scatter);
 
         
     
@@ -783,7 +783,7 @@ var curSelection_scatter = button.property("id");
 
     // }
 
-    function redraw(data, curSelection_scatter) {
+    function redrawScatter(data, curSelection_scatter) {
 
         //TODO: Fill this in with scatter plot enter/update/exit stuff including transitions.
         // Include axes that transition.
