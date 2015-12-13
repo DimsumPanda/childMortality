@@ -54,7 +54,7 @@ function getColor(d) {
         // console.log(dataRow_choropleth);
         return colorScale_choropleth(dataRow_choropleth.mortality);
     } else {
-        console.log("no dataRow", d);
+        // console.log("no dataRow", d);
         return "#ffffff";
         // return "rgba(0, 0, 0, 0.7)";
     }
