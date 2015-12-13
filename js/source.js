@@ -25,9 +25,10 @@ var projection_choropleth = d3.geo.mercator()
 // Create path with the projection
 var path_choropleth = d3.geo.path()
     .projection(projection_choropleth);
-
-var colorScale_choropleth = d3.scale.linear().range(["#d1e5f0","#b2182b"]).interpolate(d3.interpolateLab);
-
+//blue to red
+// var colorScale_choropleth = d3.scale.linear().range(["#d1e5f0","#b2182b"]).interpolate(d3.interpolateLab);
+//blue to darkorange
+var colorScale_choropleth = d3.scale.linear().range(["#d1e5f0","rgb(247, 148, 29)"]).interpolate(d3.interpolateLab);
 var countryById_choropleth = d3.map();
 
 // ====================================================================
@@ -684,7 +685,7 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
 // Scatterplot
 // ====================================================================
 
-    var width_scatter = 500;
+    var width_scatter = 550;
     var height_scatter = 500;
 
     var margin_scatter = { top: 20, right: 10, bottom: 50, left: 50 };
@@ -707,7 +708,7 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
                     .scale(yScale_scatter)
                     .orient("left");
 
-    var vis_scatter = d3.select("#vis_scatter").append("svg"); 
+    var vis_scatter = d3.select("#vis_scatter").append("svg").attr("class", "vis_scatter"); 
 // Add svg to the div#chart already in the html.
 // Create dimensions of svg
     var svg_scatter = vis_scatter

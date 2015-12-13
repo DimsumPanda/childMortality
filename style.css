@@ -81,102 +81,7 @@ p {
 }
 
 
-/*===============================================================
-   Stepper
-===============================================================*/
 
-
-svg_stepper {
-    /*    padding: 1em;*/
-    background-color: rgb(255, 255, 255);
-}
-
-svg_stepper rect:hover {
-    opacity: .3;
-}
-
-svg_stepper circle:hover {
-    opacity: .3;
-}
-
-svg_stepper g {
-    fill: #ACACAC;
-}
-
-svg_stepper g text.label_stepper,
-svg_stepper g text.ylabel_stepper {
-    fill: #2A2A2A;
-}
-
-svg_stepper {
-    background-color: white;
-}
-
-.axis_stepper path,
-.axis_stepper line {
-    fill: none;
-    stroke: #D3D3D3;
-    stroke-width: 1px;
-}
-
-.line_stepper {
-    stroke: #FF9900;
-    fill: none;
-    stroke-opacity: 25%;
-    stroke-width: 1px;
-}
-
-.ssAfrica {
-    stroke: red;
-    stroke-opacity: 50%;
-}
-
-.unfocused {
-    stroke-opacity: 25%;
-}
-
-.focused {
-    stroke-width: 2px;
-    stroke-opacity: 100%;
-}
-
-
-.axis_stepper text,
-.aside {
-    font-family: sans-serif;
-    font-size: 11px;
-}
-
-
-.orange {
-    color: #FF9900;
-}
-
-.blue {
-    color: #0099FF;
-}
-
-.red {
-    color: red;
-}
-
-.tooltip_stepper {
-    position: absolute;
-    z-index: 10;
-}
-
-.tooltip_stepper p {
-    background-color: rgba(255, 255, 255, .8);
-    padding: .5em 1em;
-    font-size: 12px;
-    line-height: 17px;
-    color: black;
-}
-
-.tooltipHeader_stepper {
-    font-weight: 700;
-    font-size: 12.5px;
-}
 
 /*===============================================================
    Scrollytelling
@@ -246,7 +151,7 @@ path.line_scrolly {
 }
 
 .line_scrolly.normal_scrolly {
-  stroke: gray;
+  stroke: #d1e5f0;
 }
 
 .line_scrolly.unfocused_scrolly{
@@ -256,17 +161,16 @@ path.line_scrolly {
 .line_scrolly.focused_scrolly {
   stroke-width: 2px;
   stroke-opacity: 100%;
-  stroke: orange;
+  stroke: rgb(0,153,255);
 }
 #extra-space {
-  height: 200px;
+  height: 50px;
 }
 
 
 /*===============================================================
    Top 20: BarChart
 ===============================================================*/
-
     #menu_top20 {
         display: block;
         float: right;
@@ -373,7 +277,11 @@ line.between_dotplot {
 /*===============================================================
    Scatterplot
 ===============================================================*/
-
+.vis_scatter{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;   
+}
 input {
     margin: 5px;
     font-size: 15pt;
