@@ -17,7 +17,7 @@
 			<h2 class="subtitle">Changes in Child Mortality Rates</h2>
 		<div class="row">
 			<p>Twenty-Five years ago, the Convention on the Rights of the Child brought the problem of child-mortality to the world's attention. Since 1990, many changes have been made, but the Millenium Development Goal - to reduce the mortality rate of children under five years of age by two-thirds between 1990 and 2015 - has still not been achieved. However, there has still been significant progress and the global under-five mortality rate has fallen by 53 percent since 1990.</p> 
-			<p class="source">Source: UNICEF, "Committing to Child Survival: A Promise Renewed (Progress Report 2015)"</p>
+			<p class="source">Source: <a href="http://www.unicef.org/publications/index_83078.html">UNICEF</a>, "Committing to Child Survival: A Promise Renewed (Progress Report 2015)"</p>
 		</div>
 
 		<!-- Choropleth Map row -->
@@ -25,17 +25,65 @@
 			
 				<h3>Global Under-Five Mortality Rates in 2015</h3>
 					<p>Mortality Rates for the year 2015. All over the world so and so amount of children under-five die each year. Some areas are more serious than others.</p>
+				<p class="source">Source: <a href="http://data.worldbank.org/indicator/SH.DYN.MORT">WorldBank</a>, Last Updated: November 12, 2015,
+				Estimates developed by the UN Inter-agency Group for Child Mortality Estimation (UNICEF, WHO, World Bank, UN DESA Population Division) at www.childmortality.org.</p>
 				<div id="vis_choropleth">
 			</div>
 		</div>
 
 		<!-- Line Graph By Region Stepper row -->
-		<div class="row" id="vis_stepper">
+<!-- 		<div class="row" id="vis_stepper">
 			<h3>However, overall the world is in a decline</h3>
 				<p>Add Scrollytelling here.</p>
 			<div id="vis_stepper"></div>
+		</div> -->
+		<div class="container_scrolly">
+  			<div id="graphic_scrolly">
+    			<div id="sections_scrolly">
+    			 <section class="step_scrolly">
+        <!-- case 0 -->
+        <div class="title_scrolly">Child Mortality</div>
+        One of the Millenium Development Goals established in 2000 is to reduce child mortality across the world. In September 25, 2015 a set 17 Sustainable Development Goals (SDG) were adopted by the United Nations' world leaders and will continue to drive progress.
+        (Source: <a href="http://www.undp.org/content/undp/en/home/mdgoverview/post-2015-development-agenda.html">UNDP</a>)
+		      </section>
+		      <section class="step_scrolly">
+		        <!-- case 1 -->
+		        <div class="title_scrolly"> </div>
+		        The number of under-five deaths has declined from about 12.7 million in 1990 to around 5.9 million in 2015. (Source: UNICEF)
+		      </section>
+		      <section class="step_scrolly">
+		        <!-- case 2 -->
+		        <div class="title_scrolly">Some countries have low child mortality rates... </div>
+		          Luxembourg has the lowest Child Mortality Rate in 2015 with 1.9 child deaths per 1,000 live births.
+		      </section>
+		      <section class="step_scrolly">
+		        <!-- case 3 -->
+		        <div class="title_scrolly">...while other countries have much higher child mortality rates.</div>
+		        Angola has the highest Child Mortality Rate in 2015 with 156.9 child deaths per 1,000 live births.
+		      </section>
+		      <section class="step_scrolly">
+		        <!-- case 4-->
+		        <div class="title_scrolly">Sub-Saharan Africa</div>
+		        This region has the highest child mortality rates in the world. However, the annual rate of reduction has increased from 1.6 percent in 1990s to 4.1 percent in 2000-2015.
+		      </section>
+		       <section class="step_scrolly">
+		        <!-- case 5-->
+		        <div class="title_scrolly"></div>
+		        Sierra Leone has the highest cummulative child mortality rates from 1990-2015.
+		      </section>
+		      <section class="step_scrolly">
+		        <!-- case 6-->
+		        <div class="title_scrolly">How come some countries reduce their child mortality rates more than others?</div>
+		        Malawi has the highest rate of change from 1990 to 2015 among the countries in Sub-Saharan Africa. The country decreased its child mortality rates by 73.6%.
+		      </section>
+		    </div>
+		    <div id="vis_scrolly">
+		    </div>
+
+		  </div>
 		</div>
-		
+        <div id="extra-space"></div>
+
 		<!-- Top 20 Bar Graph row -->
 		<div class="row" id="top20">
 			<h3>Sub-Saharan Countries with the highest...</h3>
@@ -43,9 +91,8 @@
 			<h3>Malawi</h3>
 				<p>Malawi has the highest decline in under-five mortality rate since 1990. It has experienced a 73.6% decline. In 1990, Malawi had the sixth highest under-five mortaltiy rate in the world at <span class="cyan-bold">242.4</span> deaths per 1,000 live child births. By 2015 it has lowered it's under-five mortality rate to <span class="cyan-bold">64</span> deaths per 1,000 live child births.</p>
 				<p>As of 2015, Malawi is no longer among the top 20 countries with the highest child mortality rates. From having the sixth highest under-five mortality rate in 1990, Malawi now has the 33rd highest under-five mortality rate.</p>
-				<p class="source">Source: <a href="http://data.worldbank.org/indicator/SH.DYN.MORT">WorldBank Data</a>, Last Updated: November 12, 2015,
-				Estimates developed by the UN Inter-agency Group for Child Mortality Estimation (UNICEF, WHO, World Bank, UN DESA Population Division) at www.childmortality.org.
-</p>
+				<p class="source">Source: <a href="http://data.worldbank.org/indicator/SH.DYN.MORT">WorldBank</a>, Last Updated: November 12, 2015,
+				Estimates developed by the UN Inter-agency Group for Child Mortality Estimation (UNICEF, WHO, World Bank, UN DESA Population Division) at www.childmortality.org.</p>
 				<div id="menu_top20">
 					<select>
 					<!-- //values has to match columns in csv -->
@@ -62,7 +109,7 @@
 
 		</div>
 		<div class="row" id="scatter">
-			<h3>Evidence of Drastic Improved Water Source in Malawi</h3>
+			<h3>Drastically Improved Water Source in Malawi</h3>
 			<p>The scatterplot shows the percentage of the country's rural population with access to an improved drinking water source and the under-five mortality rate in 1990 and 2015. Malawi has increased the percentage from 36.1% in 1990 to 89.1% in 2015.</p>
 
 			<p class="source">Source: <a href="http://data.worldbank.org/indicator/SH.H2O.SAFE.RU.ZS">WorldBank</a>, "Improved water source, rural (% of rural population with access)", WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply and Sanitation (http://www.wssinfo.org/).</p>
@@ -85,13 +132,18 @@
 <!-- ====================================================  -->
 	<script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="//d3js.org/queue.v1.min.js"></script>
-	<script type="text/javascript" src="tooltip.js"></script>
+	<script type="text/javascript" src="js/tooltip.js"></script>
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <!-- Map-specific -->
-	<script src="d3-legend.min.js"></script>
+	<script src="js/d3-legend.min.js"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
 	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-	<script src="source.js"></script>
+<!-- Scroller-specific -->
+	<script src="js/mfreeman_scroller.js"></script>
+	<script src="js/line_chart_refactor.js"></script>
+	<script src="js/scroller_settings.js"></script>
+<!-- Main Javascript file -->
+	<script src="js/source.js"></script>
 </body>
 
 </html>
