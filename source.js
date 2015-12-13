@@ -406,7 +406,7 @@ var svg_stepper = d3.select("#vis_stepper")
                 if (d.Country == "Malawi" || d.Country == "Niger")
                     return "rgba(0,153,255, 1)"; //cyan
                 else
-                    return "rgba(247,148,29,1)"}); //orange
+                    return "rgba(247,148,29,0.9)"}); //orange
             
 
         //enter - NEW bars get set to darkorange when we "redraw."
@@ -581,7 +581,7 @@ d3.csv("barchart_calculate.csv", function(error, data) {
                         })
                         .attr("stroke-dasharray", "5,5")
                         .attr("stroke-width", function(d, i) {
-                            if (i == 1) {
+                            if (d.Country == "Malawi") {
                                 return "1";
                             } else {
                                 return "0.5";
@@ -605,9 +605,10 @@ d3.csv("barchart_calculate.csv", function(error, data) {
                             })
                             .style("stroke", function(d){
                                 if (d.Country === "Malawi") {
-                                    return "black";
+                                    return "#030C22";
                                 }
                             })
+                            .style("stroke-width", "0.75")
                             .style("fill", function(d){
                                 if (d.Country === "Malawi") {
                                     return "darkorange";
@@ -634,12 +635,13 @@ d3.csv("barchart_calculate.csv", function(error, data) {
                     return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
                 })
                 .style("stroke", function(d){
-                    if (d.Country === "United States of America") {
-                        return "black";
+                    if (d.Country === "Malawi") {
+                        return "#030C22";
                     }
                 })
+                .style("stroke-width", "0.75")
                 .style("fill", function(d){
-                    if (d.Country === "United States of America") {
+                    if (d.Country === "Malawi") {
                         return "#476BB2";
                     }
                 })
@@ -676,3 +678,260 @@ d3.csv("barchart_calculate.csv", function(error, data) {
             //     .text("Country");
 
     });
+
+
+// ====================================================================
+// Scatterplot
+// ====================================================================
+
+    var width_scatter = 500;
+    var height_scatter = 500;
+
+    var margin_scatter = { top: 20, right: 10, bottom: 50, left: 50 };
+
+    var dotRadius_scatter = 3; 
+        //setup the svg
+    var xScale_scatter = d3.scale.linear()
+                        .range([ margin_scatter.left, width_scatter - margin_scatter.right - margin_scatter.left])
+                        .domain([-1, 100]);
+    var xAxis_scatter = d3.svg.axis()
+                    .scale(xScale_scatter)
+                    .orient("bottom")
+                    .ticks(10);
+
+    var yScale_scatter = d3.scale.linear()
+                    .range([ height_scatter - margin_scatter.bottom, margin_scatter.top ])
+                    .domain([-1, 100]);
+
+    var yAxis_scatter = d3.svg.axis()
+                    .scale(yScale_scatter)
+                    .orient("left");
+
+    var vis_scatter = d3.select("#vis_scatter").append("svg"); 
+// Add svg to the div#chart already in the html.
+// Create dimensions of svg
+    var svg_scatter = vis_scatter
+            .attr("width", width_scatter+100)
+            .attr("height", height_scatter+100); // adding some random padding
+// ===================================================================
+// Adding the Axes
+// ===================================================================
+        svg_scatter.append("g")
+                    .attr("class", "x_scatter axis_scatter")
+                    .attr("transform", "translate(0," + (height_scatter - margin_scatter.bottom) + ")")
+                    .call(xAxis_scatter);
+
+        svg_scatter.append("g")
+                    .attr("class", "y_scatter axis_scatter")
+                    .attr("transform", "translate(" + (margin_scatter.left) + ",0)")
+                    .call(yAxis_scatter);
+
+        //setup our ui buttons:
+
+        
+queue()
+    .defer(d3.csv, "scatter1990.csv")
+    .defer(d3.csv, "scatter2015.csv") // process
+    .await(loaded_scatter);
+
+var curSelection_scatter = button.property("id");
+
+    function loaded_scatter(error, data1990, data2015) {
+
+        console.log("data1990", data1990);
+        console.log("data2015", data2015);
+
+        
+
+        d3.select("#data1990")
+            .on("click", function(d,i) {
+                d3.select("button#data2015").classed("selected", false);
+                d3.select("button#data1990").classed("selected", true);
+                curSelection_scatter = "data1990";
+                redraw(data1990, curSelection_scatter); 
+            });
+
+        d3.select("#data2015")
+            .on("click", function(d,i) {
+                
+                d3.select("button#data1990").classed("selected", false);
+                d3.select("button#data2015").classed("selected", true);
+                vcurSelection_scatter = "data2015";
+                redraw(data2015, curSelection_scatter);
+            });
+        d3.select("button#data1990").classed("selected", true);
+        redraw(data1990, curSelection_scatter);
+
+        
+    
+    } // end of d3.csv
+
+
+        
+        //make the dots
+
+        //TODO: make the button for data1 look selected when the page loads.
+
+
+
+    // This function is used to draw and update the data. It takes different data each time.
+
+   
+    // function filter() {
+    // // Handle the menu change -- filter the data set if needed, rerender:
+
+
+    // }
+
+    function redraw(data, curSelection_scatter) {
+
+        //TODO: Fill this in with scatter plot enter/update/exit stuff including transitions.
+        // Include axes that transition.
+        xScale_scatter.domain([
+                d3.min(data, function(d) {
+                return +d.water;
+            }) - 2,
+            d3.max(data, function (d) {
+                return +d.water;
+            }) + 2
+        ]);
+
+            yScale_scatter.domain([
+                d3.min(data, function(d) {
+                return +d.childMortality;
+            }) - 2,
+            d3.max(data, function (d) {
+                return +d.childMortality;
+            }) + 2
+        ]);
+
+
+        var circles_scatter = svg_scatter.selectAll("circle")
+                            .data(data, function(d) {return d.Country;}); // key function!
+                    // enter and create new ones if needed
+        circles_scatter
+                .enter()
+                .append("circle")
+                 // this section is to fix some of the animation direction problems
+                .attr("cx", function (d) {
+                    if (curSelection_scatter == "data1990") {
+                        // return width_scatter - margin_scatter.right;
+                        return margin_scatter.left;
+                    }
+                    else if (curSelection_scatter == "data2015") {
+                        return margin_scatter.left;
+                    }
+                })
+                .attr("cy", function (d) {
+                    if (curSelection_scatter == "data1990") {
+                        return height_scatter - margin_scatter.bottom;
+                    }
+                    else if (curSelection_scatter == "data2015") {
+                        return height_scatter - margin_scatter.bottom;
+                        // return height_scatter;
+                    }
+                })  // 
+                .attr("class", "dots_scatter")
+                .attr("fill", function (d) {
+                    if (d.Country == "Malawi" || d.Country == "Niger"){
+                        return "rgb(0,153,255)";
+                    }
+                    else return "darkorange";
+                });
+
+                        // transition of them
+        circles_scatter
+            .transition()
+            .duration(2000)
+            .attr("cx", function(d) {
+                return xScale_scatter(+d.water);
+                // return the value to use for your x scale here
+            })
+            .attr("cy", function(d) {
+                return yScale_scatter(+d.childMortality);
+            })
+            .attr("r", function() {
+                return dotRadius_scatter;
+            });
+            // fade out the ones that aren't in the current data set
+        
+        circles_scatter
+            .exit()
+            .transition()
+            .duration(1000)
+            .style("opacity", 0)
+            .remove();
+
+
+            // Update the axes - also animated. this is really easy.
+        svg_scatter.select(".x_scatter.axis_scatter")
+              .transition()
+              .duration(1000)
+              .call(xAxis_scatter);
+
+        // Update Y Axis
+        svg_scatter.select(".y_scatter.axis_scatter")
+            .transition()
+            .duration(1000)
+            .call(yAxis_scatter);
+
+        var labels_scatter = svg_scatter.selectAll("text.dotlabels_scatter")
+            .data(data, function(d) {
+            if (d.Country == "Malawi" || d.Country == "Niger"){
+                return d.Country;
+            } else {}
+        });
+
+
+
+
+
+
+
+// label the dots if you're only showing 10.
+// if (curSelection !== "all") {
+
+    // data join with a key
+
+
+
+                    // enter and create any news ones we need. Put minimal stuff here.
+                    // Creates all of them
+                    labels_scatter
+
+                            .enter()
+                            .append("text")
+                            .attr("class", "dotlabels_scatter")
+                            .style("opacity", 0)
+                            .text(function(d) {return d.Country});
+
+                            // transition them.
+                    labels_scatter.exit().remove();
+
+
+                    labels_scatter.transition()
+                        .duration(2000)
+                        .style("opacity", 1)
+                            .attr("transform", function(d) {
+                             return "translate(" + xScale_scatter(+d.water) + "," + yScale_scatter(+d.childMortality) + ")";
+                            })
+                            .attr({
+                                "dx": "4px",
+                                "dy": "-5px"
+                            })
+                            .attr("class", "dotlabels_scatter");
+
+                        // remove ones that we don't have now
+                     // these could have a transition too...
+
+            // } else {
+            //     // if we're showing "all countries" - fade out any labels.
+
+            //     svg.selectAll("text.dotlabels")
+            //     .transition()
+            //     .duration(1000)
+            //     .style("opacity", 0)
+            //     .remove();
+
+            // }
+        } // end of draw function
