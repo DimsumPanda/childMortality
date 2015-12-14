@@ -586,6 +586,9 @@ var curSelection_scatter = $("button").click(function() {
 
 
     // }
+var tooltip_scatter = d3.select("body")
+                        .append("div")
+                        .attr("class", "tooltip_scatter");
 
     function redrawScatter(data, curSelection_scatter) {
 
@@ -743,4 +746,53 @@ var curSelection_scatter = $("button").click(function() {
             //     .remove();
 
             // }
+
+            circles_scatter.on("mouseover", mouseoverFunc_scatter)
+                .on("mousemove", mousemoveFunc_scatter)
+                .on("mouseout", mouseoutFunc_scatter);
+
+
+            function mouseoutFunc_scatter() {
+                // d3.select(this)
+                //     .transition()
+                //     .style("opacity", 0)
+                //     .attr("r", 1);
+                // d3.selectAll("path.line_scrolly").classed("unhighlight_scrolly", true).classed("highlight_scrolly", false);
+                tooltip_scatter.style("display", "none"); // this sets it to invisible!
+            }
+
+            function mouseoverFunc_scatter(d) {
+
+                // d3.selectAll("path.line_scrolly").classed("unhighlight_scrolly", true);
+                // below code sets the sub saharan africa countries out even more - they only go "unfocused" if a sub saharan country is selected. Otherwise, they remain at the regular opacity. I experiemented with this because I do want to focus on the ssAfrica countries rather than any others (so they are only "unfocused" against each other, not to other countries... This way all other countries are always compared to the ssAfrica ones... but not sure if this method is effective).
+                //         if(!d3.select(this).select("path.line").classed("ssAfrica")) {
+                //             d3.selectAll("path.ssAfrica").classed("unfocused", false);
+                //         }
+
+                // d3.select(this).select("path.line_scrolly").classed("unhighlight_scrolly", false).classed("highlight_scrolly", true);
+                // d3.select(this)
+                //     .transition()
+                //     .duration(50)
+                //     .style("opacity", 1)
+                //     .attr("r", 4);
+
+
+                tooltip_scatter
+                    .style("display", null) // this removes the display none setting from it
+                    .html("<p><span class='tooltipHeader_scatter'>" + 
+                        "<span class='cyan-bold'>" + "Country: " + "</span>" + d.Country + 
+                        "<span class='cyan-bold'>" +"<br>Under-Five Mortality Rate: " 
+                        + "</span>" + d.childMortality +
+                        "<span class='cyan-bold'>" + "<br>Improved Water: " + "</span>" 
+                        + d.water +
+                        "%</span></p>");
+            }
+
+            function mousemoveFunc_scatter(d) {
+                // console.log("events", window.event, d3.event);
+                tooltip_scatter
+                    .style("top", (d3.event.pageY - 45) + "px")
+                    .style("left", (d3.event.pageX + 5) + "px");
+            }
+
         } // end of draw function

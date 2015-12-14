@@ -384,3 +384,22 @@ button {
     font-size: 11px;
 }
 
+.tooltip_scatter {
+    position: absolute;
+    z-index: 10;
+}
+
+.tooltip_scatter p {
+    background-color: rgba(255, 255, 255, .8);
+    padding: .5em 1em;
+    font-size: 12px;
+    line-height: 17px;
+    /*color: #0099FF;*/
+    color: #FF9900;
+}
+
+.tooltipHeader_scatter {
+    /*font-weight: 700;*/
+    font-weight: normal;
+    font-size: 12.5px;
+}
