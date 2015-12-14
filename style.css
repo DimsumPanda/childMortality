@@ -59,6 +59,11 @@ p {
     color: rgb(0,153,255);
     font-weight: bold;
 }
+
+.orange-bold{
+  color: rgb(247,148,29);
+  font-weight: bold;
+}
 /*===============================================================
 	Choropleth Map-specific
 ===============================================================*/
@@ -147,69 +152,103 @@ p {
 path.line_scrolly {
   fill: none;
   stroke-width: 1px;
-  stroke-opacity: 80%;
+  stroke-opacity: 100%;
 }
 
 .line_scrolly.normal_scrolly {
-  stroke: #d1e5f0;
+  /*stroke: #d1e5f0;*/
+  stroke: #9fc9e0;
+  /*stroke: #4d94ff;*/
+  /*stroke: rgb(220,240,255);*/
+  /*stroke: #0099FF;*/
 }
 
+
 .line_scrolly.unfocused_scrolly{
-  stroke-opacity: 40%;
+  stroke-opacity: 100%;
 }
 
 .line_scrolly.focused_scrolly {
   stroke-width: 2px;
-  stroke-opacity: 100%;
-  stroke: rgb(0,153,255);
+  /*stroke-opacity: 100%;*/
+  /*stroke: rgb(0,153,255);*/
+  stroke: #FF9900;
 }
+
 #extra-space {
   height: 50px;
+}
+
+.tooltip_scrolly {
+    position: absolute;
+    z-index: 10;
+}
+
+.tooltip_scrolly p {
+    background-color: rgba(255, 255, 255, .8);
+    padding: .5em 1em;
+    font-size: 12px;
+    line-height: 17px;
+    color: black;
+}
+
+.tooltipHeader_scrolly {
+    font-weight: 700;
+    font-size: 12.5px;
 }
 
 
 /*===============================================================
    Top 20: BarChart
 ===============================================================*/
-    #menu_top20 {
-        display: block;
-        float: right;
-        padding-bottom: 40px;
-        padding-right: 50px;
-    }
+h4.top20{
+  padding-left: 2em;
+  font-weight: bold;
+}
 
-    #vis_top20 {
-        display: block;
-        /*padding-left: 75px;*/
-        float: right;
-        clear: right;
-    }
+#menu_top20 {
+    /*display: block;*/
+    float: right;
+    clear: left;
+    margin-top: -2.5em;
+    /*padding-left: 275px;*/
+    padding-bottom: 40px;
+    /*padding-right: 4em;*/
+}
+
+#vis_top20 {
+    display: block;
+    /*padding-left: 75px;*/
+    float: right;
+    clear: right;
+}
 
 
-    #menu_top20 select {
-    background: #ccc;
-       width: 300px;
-       padding: 5px;
-       font-size: 14px;
-       line-height: 1;
-       border: 0;
-       border-radius: 0;
-       height: 34px;
-    }
+#menu_top20 select {
+background: #fff;
+   width: 400px;
+   padding: 5px;
+   font-size: 14px;
+   line-height: 1;
+   border: 1;
+   border-color: #0099FF;
+   border-radius: 5px;
+   height: 34px;
+}
 
-    .labels_top20 {
-        font-family: Arial;
-        /*dark-grey*/
-        /*fill: #424242; */
-        /*deep-ink, a very dark-blue*/
-        fill: #030C22;
-        /*night teal: colourlovers*/
-        /*fill: #003E5F;*/
-        /*fill: #000;*/
-        /*fill: #fff;*/
-        font-size: 12px;
-        font-weight: bold;
-    }
+.labels_top20 {
+    font-family: Arial;
+    /*dark-grey*/
+    /*fill: #424242; */
+    /*deep-ink, a very dark-blue*/
+    fill: #030C22;
+    /*night teal: colourlovers*/
+    /*fill: #003E5F;*/
+    /*fill: #000;*/
+    /*fill: #fff;*/
+    font-size: 12px;
+    font-weight: bold;
+}
 /*===============================================================
    Top 20: Dot Plot
 ===============================================================*/
@@ -244,7 +283,7 @@ circle.y1990 {
 
 circle:hover {
     stroke-width: 3;
-    stroke: white;
+    /*stroke: white;*/
 }
 
 line.grid_dotplot {

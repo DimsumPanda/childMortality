@@ -38,40 +38,44 @@ var update = function(value) {
   var show_vis = true;
   switch(value) {
     case 0:
-      console.log("in case", value);
+      // console.log("in case", value);
       show_vis = false;
       break;
     case 1:
-      console.log("in case", value);
+      // console.log("in case", value);
       localdata_scrolly = data_scrolly;
       break;
     case 2:
-      console.log("in case", value);
+      // console.log("in case", value);
       localdata_scrolly = data_scrolly;
       country = "Luxembourg";
       break;
     case 3:
-      console.log("in case", value);
+      // console.log("in case", value);
       //yScale = d3.scale.sqrt().range([margin.top, height - margin.bottom]);
-      localdata_scrolly = data_scrolly;
-      country = "Angola";
+      localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Angola" || d.country == "Benin" || d.country == "Botswana" || d.country == "Burkina Faso" || d.country == "Burundi" || d.country == "Cabo Verde" || d.country == "Cameroon" || d.country == "Central African Republic" || d.country == "Chad" || d.country == "Comoros" || d.country == "Congo" || d.country == "Cote d'Ivoire" || d.country == "Democratic Republic of the Congo" || d.country == "Equatorial Guinea" || d.country == "Eritrea" || d.country == "Ethiopia" || d.country == "Gabon" || d.country == "Gambia" || d.country == "Ghana" || d.country == "Guinea" || d.country == "Guinea-Bissau" || d.country == "Kenya" || d.country == "Lesotho" || d.country == "Liberia" || d.country == "Madagascar" || d.country == "Malawi" || d.country == "Mali" || d.country == "Mauritania" || d.country == "Mauritius" || d.country == "Mozambique" || d.country == "Namibia" || d.country == "Nauru" || d.country == "Niger" || d.country == "Nigeria" || d.country == "Niue" || d.country == "Rwanda" || d.country == "Saint Kitts and Nevis" || d.country == "Saint Lucia" || d.country == "Saint Vincent and the Grenadines" || d.country == "Senegal" || d.country == "Seychelles" || d.country == "Sierra Leone" || d.country == "Somalia" || d.country == "South Africa" || d.country == "South Sudan" || d.country == "Sudan" || d.country == "Swaziland" || d.country == "Togo" || d.country == "Uganda" || d.country == "United Republic of Tanzania" || d.country == "Zambia" || d.country == "Zimbabwe";});
+      // localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Sierra Leone" || d.country == "Niger" || d.country == "Mali" || d.country == "Angola" || d.country == "Rwanda" || d.country == "Liberia" || d.country == "Chad" || d.country == "Nigeria" || d.country == "South Sudan" || d.country == "Burkina Faso" || d.country == "Malawi" || d.country == "Guinea-Bissau" || d.country == "Mozambique" || d.country == "Guinea" || d.country == "Central African Republic" || d.country == "Somalia" || d.country == "Zambia" || d.country == "Democratic Republic of the Congo" || d.country == "Burundi" || d.country == "Equatorial Guinea";})
+      // country = "Angola";
       break;
     case 4:
-      console.log("in case", value);
+      // console.log("in case", value);
       country = "Angola";
       localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Angola" || d.country == "Benin" || d.country == "Botswana" || d.country == "Burkina Faso" || d.country == "Burundi" || d.country == "Cabo Verde" || d.country == "Cameroon" || d.country == "Central African Republic" || d.country == "Chad" || d.country == "Comoros" || d.country == "Congo" || d.country == "Cote d'Ivoire" || d.country == "Democratic Republic of the Congo" || d.country == "Equatorial Guinea" || d.country == "Eritrea" || d.country == "Ethiopia" || d.country == "Gabon" || d.country == "Gambia" || d.country == "Ghana" || d.country == "Guinea" || d.country == "Guinea-Bissau" || d.country == "Kenya" || d.country == "Lesotho" || d.country == "Liberia" || d.country == "Madagascar" || d.country == "Malawi" || d.country == "Mali" || d.country == "Mauritania" || d.country == "Mauritius" || d.country == "Mozambique" || d.country == "Namibia" || d.country == "Nauru" || d.country == "Niger" || d.country == "Nigeria" || d.country == "Niue" || d.country == "Rwanda" || d.country == "Saint Kitts and Nevis" || d.country == "Saint Lucia" || d.country == "Saint Vincent and the Grenadines" || d.country == "Senegal" || d.country == "Seychelles" || d.country == "Sierra Leone" || d.country == "Somalia" || d.country == "South Africa" || d.country == "South Sudan" || d.country == "Sudan" || d.country == "Swaziland" || d.country == "Togo" || d.country == "Uganda" || d.country == "United Republic of Tanzania" || d.country == "Zambia" || d.country == "Zimbabwe";});
+      // localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Sierra Leone" || d.country == "Niger" || d.country == "Mali" || d.country == "Angola" || d.country == "Rwanda" || d.country == "Liberia" || d.country == "Chad" || d.country == "Nigeria" || d.country == "South Sudan" || d.country == "Burkina Faso" || d.country == "Malawi" || d.country == "Guinea-Bissau" || d.country == "Mozambique" || d.country == "Guinea" || d.country == "Central African Republic" || d.country == "Somalia" || d.country == "Zambia" || d.country == "Democratic Republic of the Congo" || d.country == "Burundi" || d.country == "Equatorial Guinea";})
       break;
     case 5:
-      console.log("in case", value);
+      // console.log("in case", value);
       // show_vis = false;
       country = "Sierra Leone";
       localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Angola" || d.country == "Benin" || d.country == "Botswana" || d.country == "Burkina Faso" || d.country == "Burundi" || d.country == "Cabo Verde" || d.country == "Cameroon" || d.country == "Central African Republic" || d.country == "Chad" || d.country == "Comoros" || d.country == "Congo" || d.country == "Cote d'Ivoire" || d.country == "Democratic Republic of the Congo" || d.country == "Equatorial Guinea" || d.country == "Eritrea" || d.country == "Ethiopia" || d.country == "Gabon" || d.country == "Gambia" || d.country == "Ghana" || d.country == "Guinea" || d.country == "Guinea-Bissau" || d.country == "Kenya" || d.country == "Lesotho" || d.country == "Liberia" || d.country == "Madagascar" || d.country == "Malawi" || d.country == "Mali" || d.country == "Mauritania" || d.country == "Mauritius" || d.country == "Mozambique" || d.country == "Namibia" || d.country == "Nauru" || d.country == "Niger" || d.country == "Nigeria" || d.country == "Niue" || d.country == "Rwanda" || d.country == "Saint Kitts and Nevis" || d.country == "Saint Lucia" || d.country == "Saint Vincent and the Grenadines" || d.country == "Senegal" || d.country == "Seychelles" || d.country == "Sierra Leone" || d.country == "Somalia" || d.country == "South Africa" || d.country == "South Sudan" || d.country == "Sudan" || d.country == "Swaziland" || d.country == "Togo" || d.country == "Uganda" || d.country == "United Republic of Tanzania" || d.country == "Zambia" || d.country == "Zimbabwe";});
+      // localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Sierra Leone" || d.country == "Niger" || d.country == "Mali" || d.country == "Angola" || d.country == "Rwanda" || d.country == "Liberia" || d.country == "Chad" || d.country == "Nigeria" || d.country == "South Sudan" || d.country == "Burkina Faso" || d.country == "Malawi" || d.country == "Guinea-Bissau" || d.country == "Mozambique" || d.country == "Guinea" || d.country == "Central African Republic" || d.country == "Somalia" || d.country == "Zambia" || d.country == "Democratic Republic of the Congo" || d.country == "Burundi" || d.country == "Equatorial Guinea";})
       break;
     case 6:
-      console.log("in case", value);
+      // console.log("in case", value);
       // show_vis = false;
       country = "Malawi";
       localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Angola" || d.country == "Benin" || d.country == "Botswana" || d.country == "Burkina Faso" || d.country == "Burundi" || d.country == "Cabo Verde" || d.country == "Cameroon" || d.country == "Central African Republic" || d.country == "Chad" || d.country == "Comoros" || d.country == "Congo" || d.country == "Cote d'Ivoire" || d.country == "Democratic Republic of the Congo" || d.country == "Equatorial Guinea" || d.country == "Eritrea" || d.country == "Ethiopia" || d.country == "Gabon" || d.country == "Gambia" || d.country == "Ghana" || d.country == "Guinea" || d.country == "Guinea-Bissau" || d.country == "Kenya" || d.country == "Lesotho" || d.country == "Liberia" || d.country == "Madagascar" || d.country == "Malawi" || d.country == "Mali" || d.country == "Mauritania" || d.country == "Mauritius" || d.country == "Mozambique" || d.country == "Namibia" || d.country == "Nauru" || d.country == "Niger" || d.country == "Nigeria" || d.country == "Niue" || d.country == "Rwanda" || d.country == "Saint Kitts and Nevis" || d.country == "Saint Lucia" || d.country == "Saint Vincent and the Grenadines" || d.country == "Senegal" || d.country == "Seychelles" || d.country == "Sierra Leone" || d.country == "Somalia" || d.country == "South Africa" || d.country == "South Sudan" || d.country == "Sudan" || d.country == "Swaziland" || d.country == "Togo" || d.country == "Uganda" || d.country == "United Republic of Tanzania" || d.country == "Zambia" || d.country == "Zimbabwe";});
+      // localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Sierra Leone" || d.country == "Niger" || d.country == "Mali" || d.country == "Angola" || d.country == "Rwanda" || d.country == "Liberia" || d.country == "Chad" || d.country == "Nigeria" || d.country == "South Sudan" || d.country == "Burkina Faso" || d.country == "Malawi" || d.country == "Guinea-Bissau" || d.country == "Mozambique" || d.country == "Guinea" || d.country == "Central African Republic" || d.country == "Somalia" || d.country == "Zambia" || d.country == "Democratic Republic of the Congo" || d.country == "Burundi" || d.country == "Equatorial Guinea";})
       break;
 
     default:
@@ -91,6 +95,10 @@ var update = function(value) {
   focus_country(country); // this applies a highlight on a country.
 };
 // setup scroll functionality
+
+var tooltip_scrolly = d3.select("body")
+                        .append("div")
+                        .attr("class", "tooltip_scrolly");
 
 function display_scrolly(error, mydata_scrolly) {
   if (error) {
@@ -119,8 +127,8 @@ function display_scrolly(error, mydata_scrolly) {
     var oldScroll = 0;
     $(window).scroll(function (event) {
       var scroll = $(window).scrollTop();
-      console.log("scroll", scroll);
-      if (scroll >= 2800 && scroll > oldScroll) {
+      // console.log("scroll", scroll);
+      if (scroll >= 3000 && scroll > oldScroll) {
           vis_scrolly.style("display", "none");
        } else if (scroll >= 1000 && scroll < 2800 && scroll < oldScroll) {
         vis_scrolly.style("display", "inline-block"); // going backwards, turn it on.
@@ -128,6 +136,7 @@ function display_scrolly(error, mydata_scrolly) {
       oldScroll = scroll;
     });
 
+ 
   }
 } // end display
 

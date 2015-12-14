@@ -121,208 +121,6 @@ function loaded(error, countries, mortalityRate) {
 
 }
 
-// ====================================================================
-// Line Graph
-// ====================================================================
-
-var margin_stepper = {
-    top: 50,
-    right: 10,
-    bottom: 70,
-    left: 70
-};
-
-var width_stepper = 650;
-var height_stepper = $(window).height() * .85;
-
-//Set up date formatting and years
-var dateFormat = d3.time.format("%Y");
-
-//Set up scales
-var xScale_stepper = d3.time.scale()
-    .range([margin_stepper.left, width_stepper - margin_stepper.right - margin_stepper.left]);
-
-var yScale_stepper = d3.scale.sqrt()
-    .range([margin_stepper.top, height_stepper - margin_stepper.bottom]);
-
-//Configure axis generators
-var xAxis_stepper = d3.svg.axis()
-    .scale(xScale_stepper)
-    .orient("bottom")
-    .ticks(15)
-    .tickFormat(function (d) {
-        return dateFormat(d);
-    })
-    .innerTickSize([0]);
-
-var yAxis_stepper = d3.svg.axis()
-    .scale(yScale_stepper)
-    .orient("left")
-    .innerTickSize([0]);
-       
-// add a tooltip to the page - not to the svg itself!
-var tooltip_stepper = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip_stepper");
-
-//Configure line generator
-// each line dataset must have a d.year and a d.rate for this to work.
-var line_stepper = d3.svg.line()
-    .x(function (d) {
-        return xScale_stepper(dateFormat.parse(d.year));
-    })
-    .y(function (d) {
-        return yScale_stepper(+d.rate);
-    });
-//Create the empty SVG image
-var svg_stepper = d3.select("#vis_stepper")
-    .append("svg")
-    .attr("width", width_stepper)
-    .attr("height", height_stepper);
-
-/*======================================================================
-   Creating the Multiple Lines from the Data
- ======================================================================*/
-
- d3.csv("data/U5MRwithWorld.csv", function (data) {
-
-    var years_stepper = d3.keys(data[0]).slice(0, 26); //
-    console.log(years_stepper);
-
-    //Create a new, empty array to hold our restructured dataset
-    var dataset_stepper = [];
-
-    //Loop once for each row in data
-    data.forEach(function (d, i) {
-
-        var IMRs = [];
-
-        years_stepper.forEach(function (y) { //Loop through all the years - and get the rates for this data element
-
-
-            if (d[y]) { /// What we are checking is if the "y" value - the year string from our array, which would translate to a column in our csv file - is empty or not.
-
-                IMRs.push({ //Add a new object to the new rates data array - for year, rate. These are OBJECTS that we are pushing onto the array
-                    year: y,
-                    rate: d[y], // this is the value for, for example, d["2004"]
-                    Country: d.Country
-                });
-            }
-
-        });
-
-        dataset_stepper.push({ // At this point we are accessing one index of data from our original csv "data", above and we have created an array of year and rate data from this index. We then create a new object with the Country value from this index and the array that we have made from this index.
-            country: d.Country,
-            rates: IMRs // we just built this from the current index.
-        });
-
-    });
-
-    console.log("data", data);
-
-    console.log("restructured data", dataset_stepper);
-
-    //Set scale domains - max and min of the years
-    xScale_stepper.domain(
-        d3.extent(years_stepper, function (d) {
-            return dateFormat.parse(d);
-        }));
-
-    // max of rates to 0 (reversed, remember)
-    yScale_stepper.domain([
-        d3.max(dataset_stepper, function (d) {
-            return d3.max(d.rates, function (d) {
-                return +d.rate;
-            });
-        }),
-        0
-    ]);
-
-    //Make a group for each country
-    var groups_stepper = svg_stepper.selectAll("g.lines_stepper")
-        .data(dataset_stepper)
-        .enter()
-        .append("g")
-        .attr("class", "lines_stepper");
-
-    //Within each group, create a new line/path,
-    //binding just the rates data to each one
-
-    groups_stepper.selectAll("path.line_stepper")
-        .data(function (d) { // because there's a group with data already...
-            return [d.rates]; // it has to be an array for the line function
-        })
-        .enter()
-        .append("path")
-        .attr("class", "line_stepper")
-        .attr("d", line_stepper);
-
-/*======================================================================
-  Multiple Lines: Adding the Axes
-======================================================================*/
-    svg_stepper.append("g")
-        .attr("class", "x axis_stepper")
-        .attr("transform", "translate(0," + (height_stepper - margin_stepper.bottom) + ")")
-        .call(xAxis_stepper)
-        .append("text")
-        .attr("x", width_stepper - margin_stepper.left - margin_stepper.right)
-        .attr("y", margin_stepper.bottom / 3)
-        .attr("dy", "1em")
-        .style("text-anchor", "end")
-        .attr("class", "label_stepper")
-        .text("Year");
-
-    svg_stepper.append("g")
-        .attr("class", "y axis_stepper")
-        .attr("transform", "translate(" + margin_stepper.left + ",0)")
-        .call(yAxis_stepper)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -margin_stepper.top)
-        .attr("y", -2*margin_stepper.left / 3)
-        .attr("dy", "1em")
-        .style("text-anchor", "end")
-        .attr("class", "ylabel_stepper")
-        .text("Under 5 Mortality Rate");
-
-    /*======================================================================
-      Multiple Lines: Mouse Functions
-    ======================================================================*/
-    d3.selectAll("g.lines_stepper")
-        .on("mouseover", mouseoverFunc_stepper)
-        .on("mouseout", mouseoutFunc_stepper)
-        .on("mousemove", mousemoveFunc_stepper);
-
-    function mouseoutFunc_stepper() {
-
-        d3.selectAll("path.line_stepper").classed("unfocused", false).classed("focused", false);
-        tooltip_stepper.style("display", "none"); // this sets it to invisible!
-    }
-
-    function mouseoverFunc_stepper(d) {
-
-        d3.selectAll("path.line_stepper").classed("unfocused", true);
-        // below code sets the sub saharan africa countries out even more - they only go "unfocused" if a sub saharan country is selected. Otherwise, they remain at the regular opacity. I experiemented with this because I do want to focus on the ssAfrica countries rather than any others (so they are only "unfocused" against each other, not to other countries... This way all other countries are always compared to the ssAfrica ones... but not sure if this method is effective).
-        //         if(!d3.select(this).select("path.line").classed("ssAfrica")) {
-        //             d3.selectAll("path.ssAfrica").classed("unfocused", false);
-        //         }
-
-        d3.select(this).select("path.line_stepper").classed("unfocused", false).classed("focused", true);
-        tooltip_stepper
-            .style("display", null) // this removes the display none setting from it
-            .html("<p><span class='tooltipHeader sans'>" + d.country + "</span></p>");
-    }
-
-    function mousemoveFunc_stepper(d) {
-        // console.log("events", window.event, d3.event);
-        tooltip_stepper
-            .style("top", (d3.event.pageY - 45) + "px")
-            .style("left", (d3.event.pageX + 5) + "px");
-    }
-
-
-
-}); // end of data csv
 
 // ====================================================================
 // Top 20 Javascript: Bar Chart
@@ -404,10 +202,11 @@ var svg_stepper = d3.select("#vis_stepper")
     //update -- existing bars get turned into darker orange when we "redraw". We don't change labels. 
         bars_top20
             .attr("fill", function (d) {
-                if (d.Country == "Malawi" || d.Country == "Niger")
+                // if (d.Country == "Malawi" || d.Country == "Niger")
+                if (d.Country == "Malawi")
                     return "rgba(0,153,255, 1)"; //cyan
                 else
-                    return "rgba(247,148,29,0.9)"}); //orange
+                    return "rgba(247,148,29,1)"}); //orange
             
 
         //enter - NEW bars get set to darkorange when we "redraw."
@@ -415,10 +214,11 @@ var svg_stepper = d3.select("#vis_stepper")
             .append("rect")
             .attr("class", "bars_top20")
             .attr("fill", function (d) {
-                if (d.Country == "Malawi" || d.Country == "Niger")
+                // if (d.Country == "Malawi" || d.Country == "Niger")
+                if (d.Country == "Malawi")
                     return "rgba(0,153,255, 1)"; //cyan
                 else
-                    return "rgba(247,148,29,0.7)"}); // lighter orange           
+                    return "rgba(247,148,29,0.5)"}); // lighter orange           
 
 
 
@@ -468,21 +268,21 @@ var svg_stepper = d3.select("#vis_stepper")
             .duration(500)//TODO: How long do you want this to last?)
             .text(function(d) {
 
-                if (d.Country == "Malawi" && column == "PercentChange") {
-                    return "************ " + "MALAWI" + " " +(+d[column]) + "%";
-                }
-                else if (d.Country == "Malawi") {
-                    return "************ " + "MALAWI" + " " +(+d[column]);
-                }
+                // if (d.Country == "Malawi" && column == "PercentChange") {
+                //     return "************ " + "MALAWI" + " " +(+d[column]) + "%";
+                // }
+                // else if (d.Country == "Malawi") {
+                //     return "************ " + "MALAWI" + " " +(+d[column]);
+                // }
 
-                else if (d.Country == "Niger" && column == "PercentChange") {
-                    return "************ " + "NIGER" + " " +(+d[column]) + "%";
-                }
-                else if (d.Country == "Niger") {
-                    return "************ " + "NIGER" + " " +(+d[column]);
-                }
+                // else if (d.Country == "Niger" && column == "PercentChange") {
+                //     return "************ " + "NIGER" + " " +(+d[column]) + "%";
+                // }
+                // else if (d.Country == "Niger") {
+                //     return "************ " + "NIGER" + " " +(+d[column]);
+                // }
 
-                else if (column == "PercentChange"){
+                if (column == "PercentChange"){
                     return d.Country + " " + (+d[column]) + "%";
                 }
 

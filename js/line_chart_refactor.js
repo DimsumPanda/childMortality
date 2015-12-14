@@ -63,7 +63,7 @@ svg_scrolly.append("g")
     .attr("y", margin_scrolly.bottom / 3)
     .attr("dy", "1em")
     .style("text-anchor", "end")
-    .attr("class", "label")
+    .attr("class", "label_scrolly")
     .text("Year");
 
 svg_scrolly.append("g")
@@ -76,7 +76,7 @@ svg_scrolly.append("g")
     .attr("y", -2*margin_scrolly.left / 3)
     .attr("dy", "1em")
     .style("text-anchor", "end")
-    .attr("class", "label")
+    .attr("class", "label_scrolly")
     .text("Under 5 Mortality Rate");
 
 var years_scrolly = [];
@@ -118,7 +118,7 @@ function make_data_scrolly(rawdata) {
 
 function draw_lines_scrolly(dataset) {
 
-    //console.log(dataset);
+    // console.log(dataset);
 
     //Set scale domains - max and min of the years
     xScale_scrolly.domain(
@@ -172,6 +172,82 @@ function draw_lines_scrolly(dataset) {
     // same for yAxis but with more transform and a title
     svg_scrolly.select(".y_scrolly.axis_scrolly").transition().duration(300).call(yAxis_scrolly);
 
+/*======================================================================
+      Multiple Lines: Mouse Functions
+    ======================================================================*/
+        var circles_scrolly = groups.selectAll("circle") //Circles haven't been created yet
+                        .data(function(d) {
+                            return d.rates;
+                        })
+                        .enter()
+                        .append("circle");
+        circles_scrolly.attr("cx", function(d) {
+                        return xScale_scrolly(dateFormat_scrolly.parse(d.year));
+                    })
+                .attr("cy", function(d) {
+                    return yScale_scrolly(d.rate);
+                })
+                .attr("r", 1)
+                .style("opacity", 0);  // this is optional - if you want visible dots or not!
+        // Adding a subtle animation to increase the dot size when over it!
+
+        circles_scrolly.on("mouseover", mouseoverFunc_scrolly)
+                .on("mousemove", mousemoveFunc_scrolly)
+                .on("mouseout", mouseoutFunc_scrolly);
+
+
+    // d3.selectAll("g.lines_scrolly")
+    //     .on("mouseover", mouseoverFunc_scrolly)
+    //     .on("mouseout", mouseoutFunc_scrolly)
+    //     .on("mousemove", mousemoveFunc_scrolly);
+
+
+
+    console.log("dataset", dataset);
+
+
+
+    function mouseoutFunc_scrolly() {
+        d3.select(this)
+            .transition()
+            .style("opacity", 0)
+            .attr("r", 1);
+        // d3.selectAll("path.line_scrolly").classed("unhighlight_scrolly", true).classed("highlight_scrolly", false);
+        tooltip_scrolly.style("display", "none"); // this sets it to invisible!
+    }
+
+    function mouseoverFunc_scrolly(d) {
+
+        // d3.selectAll("path.line_scrolly").classed("unhighlight_scrolly", true);
+        // below code sets the sub saharan africa countries out even more - they only go "unfocused" if a sub saharan country is selected. Otherwise, they remain at the regular opacity. I experiemented with this because I do want to focus on the ssAfrica countries rather than any others (so they are only "unfocused" against each other, not to other countries... This way all other countries are always compared to the ssAfrica ones... but not sure if this method is effective).
+        //         if(!d3.select(this).select("path.line").classed("ssAfrica")) {
+        //             d3.selectAll("path.ssAfrica").classed("unfocused", false);
+        //         }
+
+        // d3.select(this).select("path.line_scrolly").classed("unhighlight_scrolly", false).classed("highlight_scrolly", true);
+        d3.select(this)
+            .transition()
+            .duration(50)
+            .style("opacity", 1)
+            .attr("r", 4)
+            .style("fill", "#FF9900");
+
+
+        tooltip_scrolly
+            .style("display", null) // this removes the display none setting from it
+            .html("<p><span class='tooltipHeader_scrolly'>" + 
+                "Country: " + d.Country + 
+                "<br>Year: " + d.year +
+                "<br>Rate: " + d.rate +
+                "</span></p>");
+    }
+
+    function mousemoveFunc_scrolly(d) {
+        // console.log("events", window.event, d3.event);
+        tooltip_scrolly
+            .style("top", (d3.event.pageY - 45) + "px")
+            .style("left", (d3.event.pageX + 5) + "px");
+    }
 }
 
 
