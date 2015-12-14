@@ -142,8 +142,41 @@ function loaded(error, countries, mortalityRate) {
             .attr("height", "100%")
             .attr("fill", "none");
 
+// ====================================================================
+// Top 20 Javascript: Dot Plot
+// ====================================================================
+
+// this is the size of the svg container -- the white part
+var fullwidth_dotplot = 500,
+    fullheight_dotplot = 700;
+
+// these are the margins around the graph. Axes labels go in margins.
+var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 150};
+
+var width_dotplot = fullwidth_dotplot - margin_dotplot.left - margin_dotplot.right,
+    height_dotplot = fullheight_dotplot - margin_dotplot.top - margin_dotplot.bottom;
+
+var widthScale_dotplot = d3.scale.linear().range([ 0, width_dotplot]);
+var heightScale_dotplot = d3.scale.ordinal().rangeRoundBands([ 0, height_dotplot], 0.2);    
+var xAxis_dotplot = d3.svg.axis().scale(widthScale_dotplot).orient("bottom");
+var yAxis_dotplot = d3.svg.axis()
+                        .scale(heightScale_dotplot)
+                        .orient("left")
+                        .innerTickSize([0]);
+
+var svg_dotplot = d3.select("#vis_dotplot")
+                        .append("svg")
+                        .attr("width", fullwidth_dotplot)
+                        .attr("height", fullheight_dotplot);
+
+// ====================================================================
+// Top 20 Reading the CSV
+// ====================================================================
     d3.csv("data/barchart_calculate.csv", function(error, data_top20) {
         
+// ====================================================================
+// Top 20 Bars
+// ====================================================================        
         //Always do this first --> put into column and dataset. same
         var column_top20 = d3.select("#menu_top20 select").property("value");
         var dataset_top20 = top20_by_column(data_top20, column_top20);
@@ -151,8 +184,13 @@ function loaded(error, countries, mortalityRate) {
         console.log(column_top20, dataset_top20);
 
         redrawBar(dataset_top20, column_top20);
+        redrawDots(dataset_top20);
 
         //setup our UI -- requires access to data variable, so inside csv
+
+// ====================================================================
+// Top 20 Dotplot
+// ====================================================================
 
         d3.select("#menu_top20 select")
             .on("change", function() {
@@ -161,6 +199,7 @@ function loaded(error, countries, mortalityRate) {
                 //TODO: How do you get the current filter/storted data?
                 console.log(column_top20, dataset_top20);
                 redrawBar(dataset_top20, column_top20);
+                redrawDots(dataset_top20);
         });
 
     }) // end csv
@@ -303,51 +342,19 @@ function loaded(error, countries, mortalityRate) {
 // Top 20 Javascript: Dot Plot
 // ====================================================================
 
-// this is the size of the svg container -- the white part
-var fullwidth_dotplot = 500,
-    fullheight_dotplot = 700;
+function redrawDots(data){
 
-// these are the margins around the graph. Axes labels go in margins.
-var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 150};
-
-var width_dotplot = fullwidth_dotplot - margin_dotplot.left - margin_dotplot.right,
-    height_dotplot = fullheight_dotplot - margin_dotplot.top - margin_dotplot.bottom;
-
-var widthScale_dotplot = d3.scale.linear().range([ 0, width_dotplot]);
-var heightScale_dotplot = d3.scale.ordinal().rangeRoundBands([ 0, height_dotplot], 0.2);    
-var xAxis_dotplot = d3.svg.axis().scale(widthScale_dotplot).orient("bottom");
-var yAxis_dotplot = d3.svg.axis()
-                        .scale(heightScale_dotplot)
-                        .orient("left")
-                        .innerTickSize([0]);
-
-var svg_dotplot = d3.select("#vis_dotplot")
-                        .append("svg")
-                        .attr("width", fullwidth_dotplot)
-                        .attr("height", fullheight_dotplot);
-
-d3.csv("data/barchart_calculate.csv", function(error, data) {
-        if (error) {
-                console.log("error reading file");
-            }
-
-        // data.sort(function(a, b) {
-        //         return d3.descending(+a.Year2015, +b.Year2015);
-        //     });
-        //     // in this case, i know it's out of 100 because it's percents.
-            widthScale_dotplot.domain([ 0, d3.max(data, function(d) {
+    widthScale_dotplot.domain([ 0, d3.max(data, function(d) {
                         return +d.Year1990;
                     }) ]);
-            // js map: will make a new array out of all the d.name fields
-            heightScale_dotplot.domain(data.map(function(d) { return d.Country; } ));
-
-            // Make the faint lines from y labels to highest dot
-
-            var linesGrid_dotplot = svg_dotplot.selectAll("lines.grid_dotplot")
+    heightScale_dotplot.domain(data.map(function(d) { return d.Country; } ));
+    
+    var linesGrid_dotplot = svg_dotplot.selectAll("lines.grid_dotplot")
                                         .data(data)
                                         .enter()
                                         .append("line");
-            linesGrid_dotplot.attr("class", "grid_dotplot")
+
+    linesGrid_dotplot.attr("class", "grid_dotplot")
                         .attr("x1", margin_dotplot.left)
                         .attr("y1", function(d) {
                             return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand();
@@ -360,14 +367,12 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
                             return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand();
                         });
 
-            // Make the dotted lines between the dots
+    var linesBetween_dotplot = svg_dotplot.selectAll("lines.between_dotplot")
+                        .data(data)
+                        .enter()
+                        .append("line"); 
 
-            var linesBetween_dotplot = svg_dotplot.selectAll("lines.between_dotplot")
-                                            .data(data)
-                                            .enter()
-                                            .append("line");
-
-            linesBetween_dotplot.attr("class", "between_dotplot")
+    linesBetween_dotplot.attr("class", "between_dotplot")
                         .attr("x1", function(d) {
                             return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
                         })
@@ -387,10 +392,9 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
                             } else {
                                 return "0.5";
                             }
-                        });
-                        // Make the dots for 1990
-
-        var dots1990 = svg_dotplot.selectAll("circle.y1990")
+                        });          // Make the dots for 1990 
+                        
+    var dots1990 = svg_dotplot.selectAll("circle.y1990")
                             .data(data)
                             .enter()
                             .append("circle");
@@ -469,16 +473,8 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
                 (height_dotplot + margin_dotplot.bottom) + ")")
             .style("text-anchor", "middle")
             .text("Child Mortality Rate per 1,000 live births");
-            
-            // svg_dotplot.append("text")
-            //     .attr("class", "ylabel_dotplot")
-            //     .attr("transform", "rotate(-90)")
-            //     .attr("y", 100)
-            //     .attr("x", 0 - (height_dotplot / 2))
-            //     .style("text-anchor", "end")
-            //     .text("Country");
-
-    });
+                                   
+}
 
 
 // ====================================================================
