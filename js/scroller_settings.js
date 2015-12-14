@@ -19,6 +19,10 @@ var data_scrolly = []; // make this global
 
 var vis_scrolly = d3.select("#vis_scrolly");
 
+// var label_country_scrolly = d3.select("body")
+//                               .append("div")
+//                               .attr("class", "label_country_scrolly");
+
 function focus_country(country) {
   console.log("in focus", country);
   // unfocus all, then focus one if given a name.
@@ -29,6 +33,7 @@ function focus_country(country) {
         line.classed("focused_scrolly", true);
         var lineGroup = d3.select("g.lines_scrolly#" + country);
         lineGroup.moveToFront();
+
     }
 }
 
@@ -130,7 +135,7 @@ function display_scrolly(error, mydata_scrolly) {
       // console.log("scroll", scroll);
       if (scroll >= 3000 && scroll > oldScroll) {
           vis_scrolly.style("display", "none");
-       } else if (scroll >= 1000 && scroll < 2800 && scroll < oldScroll) {
+       } else if (scroll >= 2200 && scroll < 2800 && scroll < oldScroll) {
         vis_scrolly.style("display", "inline-block"); // going backwards, turn it on.
        }
       oldScroll = scroll;
