@@ -638,19 +638,23 @@ function redrawDots(data){
 
             labels_dotplot.enter()
                 .append("g")
-                .attr("class", "labels_dotplot y_dotplot axis_dotplot")
+                .attr("class", "labels_top20 y_dotplot axis_dotplot")
                 .attr("transform", "translate(" + margin_dotplot.left + ",0)")
                 .call(yAxis_dotplot);
 
-
-            labels_dotplot.transition()
-                .duration(500)
-                .attr("transform", "translate(" + margin_dotplot.left + ",0)")
-                .call(yAxis_dotplot);;
-
-
             labels_dotplot.exit()
                 .remove();
+
+            labels_dotplot.transition()
+                .duration(300)
+                .ease("quad")
+                // .attr("dy", "1.2em")
+                // .attr("dx", "-3px")                
+                .attr("transform", "translate(" + margin_dotplot.left + ",0)")
+
+                .call(yAxis_dotplot);
+
+
 
             // labels
             // var labels_dotplot = svg_dotplot.selectAll("g.labels_dotplot")

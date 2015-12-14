@@ -257,7 +257,7 @@ background: #fff;
     display: block;
     float: left;
     clear: left;
-    margin-top: -660px;
+    margin-top: -675px;
 }
 
 div.y2015 {
@@ -297,21 +297,27 @@ line.between_dotplot {
 .axis_dotplot path,
 .axis_dotplot line {
     fill: none;
-    stroke: black;
     stroke: none;
+    /*stroke: none;*/
     shape-rendering: crispEdges;
 }
 
 .axis_dotplot text {
-    font-size: 11px;
-}
-
-
-.ylabel_dotplot,.xlabel_dotplot {
     font-size: 14px;
-    color: #0099FF;
-    font-weight: bold;
+    font-weight: 200;
+    font-family: Arial;
+    font-style: normal;
+    shape-rendering: normal;
 }
+
+
+/*.ylabel_dotplot,.xlabel_dotplot {
+    font-size: 16px;
+    color: #0099FF;
+    font-family: Arial;
+}*/
+
+
 
 /*===============================================================
    Scatterplot
