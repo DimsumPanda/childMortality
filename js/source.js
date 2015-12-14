@@ -485,16 +485,17 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
 // Scatterplot
 // ====================================================================
 
-    var width_scatter = 550;
+    var width_scatter = 600;
     var height_scatter = 500;
 
-    var margin_scatter = { top: 20, right: 10, bottom: 50, left: 50 };
+    var margin_scatter = { top: 20, right: 10, bottom: 20, left: 100 };
 
-    var dotRadius_scatter = 3; 
+    var dotRadius_scatter = 4; 
         //setup the svg
     var xScale_scatter = d3.scale.linear()
-                        .range([ margin_scatter.left, width_scatter - margin_scatter.right - margin_scatter.left])
+                        .range([ margin_scatter.left, width_scatter])
                         .domain([-1, 100]);
+
     var xAxis_scatter = d3.svg.axis()
                     .scale(xScale_scatter)
                     .orient("bottom")
@@ -512,7 +513,7 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
 // Add svg to the div#chart already in the html.
 // Create dimensions of svg
     var svg_scatter = vis_scatter
-            .attr("width", width_scatter+100)
+            .attr("width", width_scatter+200)
             .attr("height", height_scatter+100); // adding some random padding
 // ===================================================================
 // Adding the Axes
@@ -527,6 +528,21 @@ d3.csv("data/barchart_calculate.csv", function(error, data) {
                     .attr("transform", "translate(" + (margin_scatter.left) + ",0)")
                     .call(yAxis_scatter);
 
+        //Add the axes labels:
+        svg_scatter.append("text")
+            .attr("class", "xlabel_scatter")
+            .attr("transform", "translate(" + (margin_scatter.left + width_scatter / 2) + " ," +
+                (height_scatter + margin_scatter.bottom) + ")")
+            .style("text-anchor", "middle")
+            .text("Improved water source, rural (% of rural population with access)");
+        
+        svg_scatter.append("text")
+                .attr("class", "ylabel_scatter")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 50)
+                .attr("x", 0 - (height_scatter / 2))
+                .style("text-anchor", "end")
+                .text("Under-Five Mortality Rate");
         //setup our ui buttons:
 
         
@@ -640,7 +656,8 @@ var tooltip_scatter = d3.select("body")
                 })  // 
                 .attr("class", "dots_scatter")
                 .attr("fill", function (d) {
-                    if (d.Country == "Malawi" || d.Country == "Niger"){
+                    // if (d.Country == "Malawi" || d.Country == "Niger"){
+                    if (d.Country == "Malawi"){
                         return "rgb(0,153,255)";
                     }
                     else return "darkorange";
@@ -684,7 +701,8 @@ var tooltip_scatter = d3.select("body")
 
             //filter out the data for only Niger and Malawi
         data = data.filter(function(d) {
-            if (d.Country == "Malawi" || d.Country == "Niger"){
+            // if (d.Country == "Malawi" || d.Country == "Niger"){
+            if (d.Country == "Malawi"){
                 return d.Country;
             }
         });
