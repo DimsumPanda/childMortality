@@ -148,10 +148,10 @@ function loaded(error, countries, mortalityRate) {
 
 // this is the size of the svg container -- the white part
 var fullwidth_dotplot = 500,
-    fullheight_dotplot = 700;
+    fullheight_dotplot = 600;
 
 // these are the margins around the graph. Axes labels go in margins.
-var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 150};
+var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 100};
 
 var width_dotplot = fullwidth_dotplot - margin_dotplot.left - margin_dotplot.right,
     height_dotplot = fullheight_dotplot - margin_dotplot.top - margin_dotplot.bottom;
@@ -404,7 +404,7 @@ function redrawDots(data){
                             .attr("cx", function(d) {
                                 return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
                             })
-                            .attr("r", heightScale_dotplot.rangeBand()/2)
+                            .attr("r", heightScale_dotplot.rangeBand()/4)
                             .attr("cy", function(d) {
                                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
                             })
@@ -435,7 +435,7 @@ function redrawDots(data){
                 .attr("cx", function(d) {
                     return margin_dotplot.left + widthScale_dotplot(+d.Year2015);
                 })
-                .attr("r", heightScale_dotplot.rangeBand()/2)
+                .attr("r", heightScale_dotplot.rangeBand()/4)
                 .attr("cy", function(d) {
                     return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
                 })
