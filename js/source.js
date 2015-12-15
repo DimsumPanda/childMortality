@@ -170,6 +170,10 @@ var svg_dotplot = d3.select("#vis_dotplot")
                         .attr("width", fullwidth_dotplot)
                         .attr("height", fullheight_dotplot);
 
+var tooltip_scatter = d3.select("body")
+                        .append("div")
+                        .attr("class", "tooltip_scatter");
+
 
     d3.csv("data/barchart_calculate.csv", function(error, data_top20) {
         
