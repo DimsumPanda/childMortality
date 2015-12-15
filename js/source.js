@@ -148,7 +148,7 @@ function loaded(error, countries, mortalityRate) {
 
 // this is the size of the svg container -- the white part
 var fullwidth_dotplot = 500,
-    fullheight_dotplot = 700;
+    fullheight_dotplot = 630;
 
 // these are the margins around the graph. Axes labels go in margins.
 var margin_dotplot = {top: 5, right: 50, bottom: 50, left: 150};
@@ -170,9 +170,9 @@ var svg_dotplot = d3.select("#vis_dotplot")
                         .attr("width", fullwidth_dotplot)
                         .attr("height", fullheight_dotplot);
 
-var tooltip_scatter = d3.select("body")
+var tooltip_dotplot = d3.select("body")
                         .append("div")
-                        .attr("class", "tooltip_scatter");
+                        .attr("class", "tooltip_dotplot");
 
 
     d3.csv("data/barchart_calculate.csv", function(error, data_top20) {
@@ -475,9 +475,15 @@ function redrawDots(data){
                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
             })
             .attr("stroke-dasharray", "5,5")
+            .attr("stroke", function(d, i){
+                if (d.Country == "Malawi"){
+                    return "#0099FF";
+                }
+                else return "#000000";
+            })
             .attr("stroke-width", function(d, i) {
                 if (d.Country == "Malawi") {
-                    return "1";
+                    return "2";
                 } else {
                     return "0.5";
                 }
@@ -504,18 +510,18 @@ function redrawDots(data){
             .attr("r", heightScale_dotplot.rangeBand()/4)
             .attr("cy", function(d) {
                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .style("stroke", function(d){
-                if (d.Country === "Malawi") {
-                    return "#030C22";
-                }
-            })
-            .style("stroke-width", "0.75")
-            .style("fill", function(d){
-                if (d.Country === "Malawi") {
-                    return "darkorange";
-                }
             });
+            // .style("stroke", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#FF9900";
+            //     }
+            // })
+            // .style("stroke-width", "0.75")
+            // .style("fill", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "darkorange";
+            //     }
+            // });
 
         dots1990
             .transition()
@@ -526,18 +532,18 @@ function redrawDots(data){
             .attr("r", heightScale_dotplot.rangeBand()/4)
             .attr("cy", function(d) {
                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .style("stroke", function(d){
-                if (d.Country === "Malawi") {
-                    return "#030C22";
-                }
-            })
-            .style("stroke-width", "0.75")
-            .style("fill", function(d){
-                if (d.Country === "Malawi") {
-                    return "darkorange";
-                }
             });
+            // .style("stroke", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#030C22";
+            //     }
+            // })
+            // .style("stroke-width", "0.75")
+            // .style("fill", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "darkorange";
+            //     }
+            // });
 
         dots1990
             .exit()
@@ -562,18 +568,18 @@ function redrawDots(data){
             .attr("r", heightScale_dotplot.rangeBand()/4)
             .attr("cy", function(d) {
                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .style("stroke", function(d){
-                if (d.Country === "Malawi") {
-                    return "#030C22";
-                }
-            })
-            .style("stroke-width", "0.75")
-            .style("fill", function(d){
-                if (d.Country === "Malawi") {
-                    return "#476BB2";
-                }
             });
+            // .style("stroke", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#030C22";
+            //     }
+            // })
+            // .style("stroke-width", "0.75")
+            // .style("fill", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#476BB2";
+            //     }
+            // });
 
         dots2015
             .transition()
@@ -586,17 +592,17 @@ function redrawDots(data){
             .attr("cy", function(d) {
                 return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
             })
-            .style("stroke", function(d){
-                if (d.Country === "Malawi") {
-                    return "#030C22";
-                }
-            })
-            .style("stroke-width", "0.75")
-            .style("fill", function(d){
-                if (d.Country === "Malawi") {
-                    return "#476BB2";
-                }
-            });
+            // .style("stroke", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#030C22";
+            //     }
+            // })
+            // .style("stroke-width", "0.75")
+            // .style("fill", function(d){
+            //     if (d.Country === "Malawi") {
+            //         return "#476BB2";
+            //     }
+            // });
 
             dots2015
                 .exit()
@@ -683,26 +689,46 @@ function redrawDots(data){
                 .attr("fill", "#ffffff")
                 .remove();
 
-            // svg_dotplot.append("g")
-            // .attr("class", "y_dotplot axis_dotplot")
-            // .attr("transform", "translate(" + margin_dotplot.left + ",0)")
-            // .call(yAxis_dotplot);
-            // svg_dotplot.append("text")
-            // .attr("class", "xlabel_dotplot")
-            // .attr("transform", "translate(" + (margin_dotplot.left + width_dotplot / 2) + " ," +
-            //     (height_dotplot + margin_dotplot.bottom) + ")")
-            // .style("text-anchor", "middle")
-            // .text("Child Mortality Rate per 1,000 live births");
-            
-            // svg_dotplot.append("text")
-            //     .attr("class", "ylabel_dotplot")
-            //     .attr("transform", "rotate(-90)")
-            //     .attr("y", 100)
-            //     .attr("x", 0 - (height_dotplot / 2))
-            //     .style("text-anchor", "end")
-            //     .text("Country");
 
-    // });
+            dots1990.on("mouseover", mouseoverFunc_dotplot1990)
+                .on("mousemove", mousemoveFunc_dotplot)
+                .on("mouseout", mouseoutFunc_dotplot);
+
+            dots2015.on("mouseover", mouseoverFunc_dotplot2015)
+                .on("mousemove", mousemoveFunc_dotplot)
+                .on("mouseout", mouseoutFunc_dotplot);
+
+
+            function mouseoutFunc_dotplot() {
+                tooltip_dotplot.style("display", "none");
+            }
+            function mouseoverFunc_dotplot1990(d) {
+                tooltip_dotplot
+                    .style("display", null)
+                    .html("<p><span class='tooltipHeader_scatter'>" + 
+                        "<span class='cyan-bold'>" + "Country: " + "</span>" + d.Country + 
+                        "<span class='cyan-bold'>" +"<br>Under-Five Mortality Rate 1990: " 
+                        + "</span>" + d.Year1990 +
+            
+                        "</p>");
+            }
+            function mouseoverFunc_dotplot2015(d) {
+                tooltip_dotplot
+                    .style("display", null)
+                    .html("<p><span class='tooltipHeader_scatter'>" + 
+                        "<span class='cyan-bold'>" + "Country: " + "</span>" + d.Country + 
+                        "<span class='cyan-bold'>" +"<br>Under-Five Mortality Rate 2015: " 
+                        + "</span>" + d.Year2015 +
+                        "</p>");
+            }
+
+            function mousemoveFunc_dotplot(d) {
+                tooltip_dotplot
+                    .style("top", (d3.event.pageY - 45) + "px")
+                    .style("left", (d3.event.pageX + 5) + "px");
+            }
+
+
 }
 
 // ====================================================================

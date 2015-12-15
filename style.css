@@ -290,9 +290,9 @@ div.y1990 {
     display: inline;
 }
 
-circle {
+/*circle {
     stroke-width: 2;
-}
+}*/
 
 circle.y2015 {
     fill: #6699FF;
@@ -308,12 +308,13 @@ circle:hover {
 }
 
 line.grid_dotplot {
-    stroke: #eee;
+    /*stroke: #eee;*/
+    stroke: none;
 }
 
-line.between_dotplot {
+/*line.between_dotplot {
     stroke: black;
-}
+}*/
 
 .axis_dotplot path,
 .axis_dotplot line {
@@ -328,6 +329,7 @@ line.between_dotplot {
     /*font-weight: 200;*/
     font-family: Arial;
     font-style: normal;
+    /*fill: #0099FF;*/
     /*shape-rendering: none;*/
 }
 
@@ -436,4 +438,18 @@ button {
     font-size: 14px;
     color: #0099FF;
     font-weight: bold;
+}
+
+.tooltip_dotplot {
+    position: absolute;
+    z-index: 10;
+}
+
+.tooltip_dotplot p {
+    background-color: rgba(255, 255, 255, .8);
+    padding: .5em 1em;
+    font-size: 12px;
+    line-height: 17px;
+    /*color: #0099FF;*/
+    color: #FF9900;
 }
