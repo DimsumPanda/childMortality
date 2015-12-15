@@ -44,6 +44,7 @@ var update = function(value) {
   switch(value) {
     case 0:
       // console.log("in case", value);
+      // localdata_scrolly = data_scrolly;
       show_vis = false;
       break;
     case 1:
@@ -81,8 +82,11 @@ var update = function(value) {
       country = "Malawi";
       localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Angola" || d.country == "Benin" || d.country == "Botswana" || d.country == "Burkina Faso" || d.country == "Burundi" || d.country == "Cabo Verde" || d.country == "Cameroon" || d.country == "Central African Republic" || d.country == "Chad" || d.country == "Comoros" || d.country == "Congo" || d.country == "Cote d'Ivoire" || d.country == "Democratic Republic of the Congo" || d.country == "Equatorial Guinea" || d.country == "Eritrea" || d.country == "Ethiopia" || d.country == "Gabon" || d.country == "Gambia" || d.country == "Ghana" || d.country == "Guinea" || d.country == "Guinea-Bissau" || d.country == "Kenya" || d.country == "Lesotho" || d.country == "Liberia" || d.country == "Madagascar" || d.country == "Malawi" || d.country == "Mali" || d.country == "Mauritania" || d.country == "Mauritius" || d.country == "Mozambique" || d.country == "Namibia" || d.country == "Nauru" || d.country == "Niger" || d.country == "Nigeria" || d.country == "Niue" || d.country == "Rwanda" || d.country == "Saint Kitts and Nevis" || d.country == "Saint Lucia" || d.country == "Saint Vincent and the Grenadines" || d.country == "Senegal" || d.country == "Seychelles" || d.country == "Sierra Leone" || d.country == "Somalia" || d.country == "South Africa" || d.country == "South Sudan" || d.country == "Sudan" || d.country == "Swaziland" || d.country == "Togo" || d.country == "Uganda" || d.country == "United Republic of Tanzania" || d.country == "Zambia" || d.country == "Zimbabwe";});
       // localdata_scrolly = data_scrolly.filter(function(d) {return d.country == "Sierra Leone" || d.country == "Niger" || d.country == "Mali" || d.country == "Angola" || d.country == "Rwanda" || d.country == "Liberia" || d.country == "Chad" || d.country == "Nigeria" || d.country == "South Sudan" || d.country == "Burkina Faso" || d.country == "Malawi" || d.country == "Guinea-Bissau" || d.country == "Mozambique" || d.country == "Guinea" || d.country == "Central African Republic" || d.country == "Somalia" || d.country == "Zambia" || d.country == "Democratic Republic of the Congo" || d.country == "Burundi" || d.country == "Equatorial Guinea";})
+      // show_vis = false;
       break;
-
+    case 7:
+      show_vis = false;
+      break;
     default:
       country = null;
       show_vis = true;
@@ -120,6 +124,8 @@ function display_scrolly(error, mydata_scrolly) {
     var scroll = scroller()
       .container_scrolly(d3.select('#graphic_scrolly'));
 
+    var unicef_children = d3.select('#unicef_children');
+
     // pass in .step selection as the steps
     scroll(d3.selectAll('.step_scrolly'));
 
@@ -132,10 +138,19 @@ function display_scrolly(error, mydata_scrolly) {
     var oldScroll = 0;
     $(window).scroll(function (event) {
       var scroll = $(window).scrollTop();
-      // console.log("scroll", scroll);
+      console.log("scroll", scroll);
+      if (scroll >= 1000 && scroll > oldScroll)
+      {
+        unicef_children.style("display", "none");
+      }
+      else if (scroll < 1100 && scroll > oldScroll){
+        unicef_children.style("display", "inline-block");
+      }
       if (scroll >= 3000 && scroll > oldScroll) {
+          // unicef_children.style("display", "inline-block");
           vis_scrolly.style("display", "none");
-       } else if (scroll >= 2200 && scroll < 2800 && scroll < oldScroll) {
+      } else if (scroll >= 2500 && scroll < 2800 && scroll < oldScroll) {
+       // } else if (scroll >= 2500 && scroll < 2800 && scroll < oldScroll) {
         vis_scrolly.style("display", "inline-block"); // going backwards, turn it on.
        }
       oldScroll = scroll;

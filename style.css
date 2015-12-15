@@ -64,6 +64,16 @@ p {
   color: rgb(247,148,29);
   font-weight: bold;
 }
+
+#unicef_children{
+  display: block;
+  float: right;
+  clear: right;
+  z-index: 100;
+  /*margin-top: 500px;*/
+  margin-right: 9em;
+  width: 450px;
+}
 /*===============================================================
 	Choropleth Map-specific
 ===============================================================*/
@@ -197,7 +207,13 @@ path.line_scrolly {
     font-size: 12.5px;
 }
 
-
+#shrinkme{
+  margin-top: -600px;
+}
+/*#floatStmt{
+  display:block;
+  z-index: 20;
+}*/
 /*===============================================================
    Top 20: BarChart
 ===============================================================*/
@@ -257,7 +273,7 @@ background: #fff;
     display: block;
     float: left;
     clear: left;
-    margin-top: -675px;
+    margin-top: -665px;
 }
 
 div.y2015 {
@@ -299,15 +315,15 @@ line.between_dotplot {
     fill: none;
     stroke: none;
     /*stroke: none;*/
-    shape-rendering: crispEdges;
+    /*shape-rendering: crispEdges;*/
 }
 
 .axis_dotplot text {
-    font-size: 14px;
-    font-weight: 200;
+    font-size: 12px;
+    /*font-weight: 200;*/
     font-family: Arial;
     font-style: normal;
-    shape-rendering: normal;
+    /*shape-rendering: none;*/
 }
 
 

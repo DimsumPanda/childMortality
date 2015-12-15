@@ -417,66 +417,69 @@ function redrawDots(data){
 
         // Make the dotted lines between the dots
 
-        var linesBetween_dotplot = svg_dotplot.selectAll("lines.between_dotplot")
+        var linesBetween_dotplot = svg_dotplot.selectAll("line.between_dotplot")
                                 .data(data, function(d) {
                                     return d.Country;
                                 });
         linesBetween_dotplot
             .enter()
             .append("line")
-            .attr("class", "between_dotplot")
-            .attr("x1", function(d) {
-                return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
-            })
-            .attr("y1", function(d) {
-                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .attr("x2", function(d) {
-                return margin_dotplot.left + widthScale_dotplot(d.Year2015);
-            })
-            .attr("y2", function(d) {
-                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .attr("stroke-dasharray", "5,5")
-            .attr("stroke-width", function(d, i) {
-                if (d.Country == "Malawi") {
-                    return "1";
-                } else {
-                    return "0.5";
-                }
-            });
-
-        linesBetween_dotplot
-            .transition()
-            .duration(500)
-            .attr("class", "between_dotplot")
-            .attr("x1", function(d) {
-                return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
-            })
-            .attr("y1", function(d) {
-                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .attr("x2", function(d) {
-                return margin_dotplot.left + widthScale_dotplot(d.Year2015);
-            })
-            .attr("y2", function(d) {
-                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
-            })
-            .attr("stroke-dasharray", "5,5")
-            .attr("stroke-width", function(d, i) {
-                if (d.Country == "Malawi") {
-                    return "1";
-                } else {
-                    return "0.5";
-                }
-            });
+            .attr("class", "between_dotplot");
+            // .attr("x1", function(d) {
+            //     return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
+            // })
+            // .attr("y1", function(d) {
+            //     return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+            // })
+            // .attr("x2", function(d) {
+            //     return margin_dotplot.left + widthScale_dotplot(d.Year2015);
+            // })
+            // .attr("y2", function(d) {
+            //     return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+            // })
+            // .attr("stroke-dasharray", "5,5")
+            // .attr("stroke-width", function(d, i) {
+            //     if (d.Country == "Malawi") {
+            //         return "1";
+            //     } else {
+            //         return "0.5";
+            //     }
+            // });
 
         linesBetween_dotplot
             .exit()
-            .transition()
-            .duration(500)
-            .style("opacity", 0)
+            // .transition()
+            // .duration(500)
+            // .style("opacity", 0)
+            // .attr("stroke-width", 0)
             .remove();
+
+        linesBetween_dotplot
+            // .transition()
+            // .duration(500)
+            // .attr("class", "between_dotplot")
+            .attr("x1", function(d) {
+                return margin_dotplot.left + widthScale_dotplot(+d.Year1990);
+            })
+            .attr("y1", function(d) {
+                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+            })
+            .attr("x2", function(d) {
+                return margin_dotplot.left + widthScale_dotplot(d.Year2015);
+            })
+            .attr("y2", function(d) {
+                return heightScale_dotplot(d.Country) + heightScale_dotplot.rangeBand()/2;
+            })
+            .attr("stroke-dasharray", "5,5")
+            .attr("stroke-width", function(d, i) {
+                if (d.Country == "Malawi") {
+                    return "1";
+                } else {
+                    return "0.5";
+                }
+            });
+
+
 
 
                         // Make the dots for 1990
