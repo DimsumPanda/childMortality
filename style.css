@@ -6,6 +6,7 @@ body {
 
     /*font-family: Helvetica, sans-serif;*/
     background-image: url("unicef.jpg");
+    background-attachment: fixed;
 
 }
 
@@ -51,6 +52,17 @@ p {
     padding-top: 0em;
     color: #8A8A8A;
     text-align: right;
+    margin-bottom: 1em;
+    font-size: 0.8em;
+}
+
+.source_footer {
+    font-style: italic;
+    /*color: rgb(0,153,255);*/
+    margin-top: 0em;
+    padding-top: 0em;
+    color: #8A8A8A;
+    text-align: left;
     margin-bottom: 1em;
     font-size: 0.8em;
 }
