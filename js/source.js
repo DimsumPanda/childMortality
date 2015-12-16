@@ -170,9 +170,74 @@ var svg_dotplot = d3.select("#vis_dotplot")
                         .attr("width", fullwidth_dotplot)
                         .attr("height", fullheight_dotplot);
 
+
 var tooltip_dotplot = d3.select("body")
                         .append("div")
                         .attr("class", "tooltip_dotplot");
+
+var svg_legend_dotplot = d3.select("#vis_dotplotlegend")
+                        .attr("class", "vis_dotplotlegend")
+                        .append("svg")
+                        .attr("width", 150)
+                        .attr("height", 30);
+
+svg_legend_dotplot.append("rect")
+                        .attr("class", "y1990")
+                        .attr("width", 150)
+                        .attr("height", 30)
+                        // .attr("stroke", "#0099FF")
+                        // .attr("stroke-width", 0.5)
+                        .attr("fill", "#d1e5f0");
+
+svg_legend_dotplot.append("line")
+    .attr("class", "between_dotplot")
+    .attr("x1", 100)
+    .attr("y1", 15)
+    .attr("x2", 50)
+    .attr("y2", 15)
+    .attr("stroke-dasharray", "5,5")
+    .attr("stroke", "#000000")
+    .attr("stroke-width", "0.5");
+
+svg_legend_dotplot.append("circle")
+                        .attr("class", "y1990")
+                        .attr("cx", 100)
+                        .attr("cy", 15)
+                        .attr("r", 5);
+
+svg_legend_dotplot.append("circle")
+                        .attr("class", "y2015")
+                        .attr("cx", 50)
+                        .attr("cy", 15)
+                        .attr("r", 5);
+svg_legend_dotplot.append("text")
+    .attr("x", 5)
+    .attr("y", 20)
+    .text("2015")
+    .attr("font-weight", "bold");
+svg_legend_dotplot.append("text")
+    .attr("x", 110)
+    .attr("y", 20)
+    .text("1990")
+    .attr("font-weight", "bold");
+
+    
+
+// var legend_rect = svg_legend_dotplot
+//         .append("rect")
+//         .attr("x", 10)
+//         .attr("y", 10)
+//         .attr("width", 200)
+//         .attr("height", 50)
+//         .attr("fill", "rgba(0, 0, 255, 0.5)");
+
+// var dot_1990 = legend_dotplot.select("circle.y1990");
+
+// dot_1990.append("circle")
+//             .attr("class", "y1990")
+//             .attr("cx", 80)
+//             .attr("cy", 25)
+//             .attr("r", 3);
 
 
     d3.csv("data/barchart_calculate.csv", function(error, data_top20) {
@@ -619,30 +684,6 @@ function redrawDots(data){
                         .call(xAxis_dotplot);
 
 
-            // var labels_dotplot = svg_dotplot.selectAll("text.labels_dotplot")
-            //     .data(data, function (d) {
-            //         return d.Country;
-            //     });
-
-            // labels_dotplot.enter()
-            //     .append("text")
-            //     .attr("class", "labels_dotplot");
-
-            // labels_dotplot.exit()
-            //     .remove();
-
-            // labels_dotplot.transition()
-            //     .duration(500)
-                // .text(function(d) {
-                //     return d.Country
-                // })
-                // .attr("class", "y_dotplot axis_dotplot")
-                // .attr("transform", function(d,i) {
-                //     "translate(" + margin_dotplot.left + "," + yScale_top20(i) + ")"})
-                // .attr("dy", "1.2em")
-                // .attr("dx", "-3px")
-                // .attr("text-anchor", "end");
-
 
             var labels_dotplot = svg_dotplot.selectAll("g.labels_dotplot")
                 .data(data, function (d) {
@@ -665,25 +706,6 @@ function redrawDots(data){
 
             labels_dotplot.exit()
                 .remove();
-
-
-
-            // labels
-            // var labels_dotplot = svg_dotplot.selectAll("g.labels_dotplot")
-            //     .data(data, function (d) {
-            //         return d.Country;
-            //     })
-
-            // labels_dotplot.enter()
-            //     .append("g")
-            //     .attr("class", "labels_dotplot");
-
-            // labels_dotplot
-            //     .transition()
-            //     .duration(500)
-            //     .attr("class", "y_dotplot axis_dotplot")
-            //     .attr("transform", "translate(" + margin_dotplot.left + ",0)")
-            //     .call(yAxis_dotplot);
 
             labels_dotplot.exit()
                 .attr("fill", "#ffffff")

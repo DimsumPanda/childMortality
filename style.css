@@ -222,16 +222,21 @@ path.line_scrolly {
 /*===============================================================
    Top 20: BarChart
 ===============================================================*/
+h3.top20{
+  margin-bottom: 1em;
+}
 h4.top20{
   padding-left: 2em;
   font-weight: bold;
+  margin-bottom: 0em;
 }
 
 #menu_top20 {
     /*display: block;*/
     float: right;
     clear: left;
-    margin-top: -2.5em;
+    /*margin-top: -50px;*/
+    margin-top: -2em;
     /*padding-left: 275px;*/
     padding-bottom: 40px;
     /*padding-right: 4em;*/
@@ -340,7 +345,13 @@ line.grid_dotplot {
     font-family: Arial;
 }*/
 
-
+#vis_dotplotlegend{
+  margin-left: 2.8em;
+  margin-top:  1em;
+  /*margin-bottom: 10px;*/
+  display: block;
+  /*margin-top: 650px;*/
+}
 
 /*===============================================================
    Scatterplot
