@@ -139,7 +139,7 @@ function display_scrolly(error, mydata_scrolly) {
     $(window).scroll(function (event) {
       var scroll = $(window).scrollTop();
       console.log("scroll", scroll);
-      if (scroll >= 960 && scroll > oldScroll)
+      if (scroll >= 980 && scroll > oldScroll)
       {
         unicef_children.style("display", "none");
       }
